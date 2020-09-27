@@ -31,5 +31,10 @@ module.exports = {
         config: JSON.stringify({
             apiUrl: 'http://localhost:4000'
         })
-    }
+    },
+    node: {
+        net: 'empty',      
+        fs: 'empty',
+        tls: 'empty'
+  }
 }
