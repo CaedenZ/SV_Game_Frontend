@@ -1,4 +1,3 @@
-import config from '../webpack.config';
 import { authHeader } from '../helpers';
 
 export const userService = {
