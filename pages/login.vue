@@ -67,6 +67,7 @@ export default {
     }
   },
   mounted() {
+    console.log('mounted')
     if (Cookie.get('userInfo')) {
       this.$router.push('/')
     }

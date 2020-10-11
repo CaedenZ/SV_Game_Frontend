@@ -52,6 +52,11 @@ export default {
           icon: 'lightbulb',
           to: { name: 'login' },
         },
+        {
+          title: 'Register',
+          icon: 'lightbulb',
+          to: { name: 'register' },
+        },
       ],
     }
   },
