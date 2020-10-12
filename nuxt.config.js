@@ -1,3 +1,7 @@
+const axiosCallURLs = {
+  baseURL: 'https://rz69ag9ks1.execute-api.ap-southeast-1.amazonaws.com/v1/',
+}
+
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
   ssr: false,
@@ -14,10 +18,18 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [],
+  css: ['vue-snotify/styles/material.css'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [],
+  plugins: [
+    '~/plugins/axios',
+    '~/plugins/vee-validate.js',
+    '~/plugins/vue-toast-notification.js',
+    {
+      src: '~/plugins/vue-snotify',
+      ssr: false,
+    },
+  ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -37,7 +49,12 @@ export default {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+    baseURL: axiosCallURLs.baseURL,
+    credentials: false,
+    proxyHeaders: false,
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},

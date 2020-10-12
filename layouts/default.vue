@@ -48,9 +48,14 @@ export default {
           to: { name: 'index' },
         },
         {
-          title: 'Inspire',
+          title: 'Login_TEST',
           icon: 'lightbulb',
-          to: { name: 'inspire' },
+          to: { name: 'login' },
+        },
+        {
+          title: 'Register',
+          icon: 'lightbulb',
+          to: { name: 'register' },
         },
       ],
     }
