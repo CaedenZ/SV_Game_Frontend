@@ -6,9 +6,9 @@
 
     <b-field label="Email">
       <b-input
-        type="email"
         v-model="email"
         v-validate="'required|email'"
+        type="email"
         maxlength="30"
       >
       </b-input>
@@ -22,7 +22,7 @@
       <b-input type="password" v-model="password" password-reveal> </b-input>
     </b-field>
 
-    <button :onClick="reg">submit</button>
+    <button @click="registration">submit</button>
   </section>
 </template>
 
@@ -36,9 +36,16 @@ export default {
       username: '',
     }
   },
+  mounted() {
+    console.log('Mounter')
+  },
   methods: {
-    reg() {
-      console.log(this)
+    registration() {
+      console.log(this.name)
+      this.$toast.open({
+        message: this.name,
+        type: 'info',
+      })
     },
   },
 }
