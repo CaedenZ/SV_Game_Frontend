@@ -8,8 +8,8 @@
         >
           EMAIL
           <span
-            class="has-text-danger is-pulled-right"
             v-if="errors.first('email')"
+            class="has-text-danger is-pulled-right"
             >!</span
           >
           <input
@@ -28,8 +28,8 @@
         >
           PASSWORD
           <span
-            class="has-text-danger is-pulled-right"
             v-if="errors.first('password')"
+            class="has-text-danger is-pulled-right"
             >!</span
           >
           <input
@@ -55,10 +55,6 @@
 <script>
 import Cookie from 'js-cookie'
 export default {
-  head: {
-    title: 'Login',
-  },
-  inject: ['$validator'],
   components: {},
   data() {
     return {
@@ -66,7 +62,9 @@ export default {
       password: '',
     }
   },
+  inject: ['$validator'],
   mounted() {
+    console.log('mounted')
     if (Cookie.get('userInfo')) {
       this.$router.push('/')
     }
@@ -105,6 +103,10 @@ export default {
         })
       })
     },
+  },
+
+  head: {
+    title: 'Login',
   },
 }
 </script>
