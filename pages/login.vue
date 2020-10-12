@@ -42,11 +42,11 @@
         </p>
       </div>
       <div class="has-text-right">
-        <button :onClick="validateBeforeSubmit"></button>
+        <button :onClick="validateBeforeSubmit">Login</button>
       </div>
     </form>
-    <p id="loginLinks" class="container">
-      <nuxt-link :to="'signup'">Sign Up</nuxt-link>&nbsp;·
+    <p class="container" id="loginLinks">
+      <nuxt-link :to="'register'">Sign Up</nuxt-link>&nbsp;·
       <nuxt-link :to="'forgotpassword'">Forgot Password</nuxt-link>
     </p>
   </section>
@@ -76,7 +76,7 @@ export default {
         email: this.email,
         password: this.password,
       }
-      const retData = await this.$axios.$post('/user/login', loginInfo)
+      const retData = await this.$axios.$post('/login', loginInfo)
       if (!retData.error) {
         retData.data.address = JSON.parse(retData.data.address)
         this.$store.commit('setLoggedIn', retData.data)
