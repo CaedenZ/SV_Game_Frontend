@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-3">
+  <div class="column is-offset-1">
     <div class="card" :class="title">
       <header class="card-header">
         <p class="card-header-title has-text-grey">
@@ -8,9 +8,12 @@
       </header>
       <div class="card-content">
         <div class="content has-text-centered">
-          {{ content }}
+          <strong>{{ content }}</strong>
         </div>
       </div>
+      <footer class="card-footer">
+        <button>Select</button>
+      </footer>
     </div>
   </div>
 </template>

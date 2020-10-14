@@ -43,7 +43,7 @@ export default {
     return {
       items: [
         {
-          title: 'Home',
+          title: 'Home_TEST',
           icon: 'home',
           to: { name: 'index' },
         },
@@ -53,9 +53,14 @@ export default {
           to: { name: 'login' },
         },
         {
-          title: 'Register',
+          title: 'Register_TEST',
           icon: 'lightbulb',
           to: { name: 'register' },
+        },
+        {
+          title: 'Game_TEST',
+          icon: 'lightbulb',
+          to: { name: 'game' },
         },
       ],
     }
