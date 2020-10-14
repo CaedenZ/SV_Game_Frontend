@@ -1,34 +1,56 @@
 <template>
   <section class="section">
     <div class="columns is-mobile">
-      <card title="Free" icon="github">
-        Open source on <a href="https://github.com/buefy/buefy"> GitHub </a>
-      </card>
-
-      <card title="Responsive" icon="cellphone-link">
-        <b class="has-text-grey"> Every </b> component is responsive
-      </card>
-
-      <card title="Modern" icon="alert-decagram">
-        Built with <a href="https://vuejs.org/"> Vue.js </a> and
-        <a href="http://bulma.io/"> Bulma </a>
-      </card>
-
-      <card title="Lightweight" icon="arrange-bring-to-front">
-        No other internal dependency
-      </card>
+      <Team v-for="(team, key) of teams" :key="key" :title="'Group ' + key">
+        <p v-for="(member, ckey) of team.members" :key="ckey">{{ member }}</p>
+      </Team>
     </div>
   </section>
 </template>
 
 <script>
-import Card from '~/components/Card'
+import Team from '~/components/Team'
 
 export default {
   name: 'HomePage',
 
   components: {
-    Card,
+    Team,
+  },
+  data() {
+    return {
+      teams: [
+        { members: ['Mac', 'Pablo', 'Keiren Fletcher', 'Safwan Cox'] },
+        { members: ['Caius Finch', 'Vlad Stevenson', 'Anil Correa'] },
+        {
+          members: [
+            'Maizie Morrow',
+            'Woody Raymond',
+            'Renesmae Sandoval',
+            'Tamanna Greenwood',
+            'Kierran Melia',
+            'Sia Wood',
+          ],
+        },
+        {
+          members: [
+            'Kaison Lugo',
+            'Georga Ferrell',
+            'Helen Kaiser',
+            'Bobbie Lyons',
+            'Tomos Gates',
+          ],
+        },
+      ],
+    }
+  },
+  mounted() {
+    this.getData()
+  },
+  methods: {
+    getData() {
+      alert('fetch Data')
+    },
   },
 }
 </script>
