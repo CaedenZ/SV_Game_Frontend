@@ -70,6 +70,11 @@ export default {
           icon: 'lightbulb',
           to: { name: 'game' },
         },
+        {
+          title: 'Leaderboard_TEST',
+          icon: 'lightbulb',
+          to: { name: 'leaderboard' },
+        },
       ],
     }
   },
