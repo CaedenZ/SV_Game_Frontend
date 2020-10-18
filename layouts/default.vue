@@ -6,9 +6,7 @@
       aria-label="main navigation"
     >
       <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <img src="~assets/buefy.png" alt="Buefy" height="28" />
-        </a>
+        <a class="navbar-item" href="/"> SV Game </a>
 
         <div class="navbar-burger">
           <span />
@@ -16,11 +14,21 @@
           <span />
         </div>
       </div>
+
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <!-- navbar items -->
+        </div>
+
+        <div class="navbar-end">
+          <a class="navbar-item" href="/profile">{{ currentUser.userName }}</a>
+        </div>
+      </div>
     </nav>
 
     <section class="main-content columns">
       <aside class="column is-2 section">
-        <p class="menu-label is-hidden-touch">General</p>
+        <p class="menu-label is-hidden-touch">User View</p>
         <ul class="menu-list">
           <li v-for="(item, key) of items" :key="key">
             <nuxt-link :to="item.to" exact-active-class="is-active">
@@ -65,5 +73,11 @@ export default {
       ],
     }
   },
+  computed: {
+    currentUser() {
+      return this.$store.state.userInfo
+    },
+  },
+  mounted() {},
 }
 </script>

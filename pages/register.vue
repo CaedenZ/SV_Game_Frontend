@@ -1,10 +1,6 @@
 <template>
   <section>
     <div class="is-half">
-      <b-field label="Name">
-        <b-input v-model="name"></b-input>
-      </b-field>
-
       <b-field label="Email">
         <b-input
           v-model="email"
@@ -20,7 +16,12 @@
       </b-field>
 
       <b-field label="Password">
-        <b-input type="password" v-model="password" password-reveal> </b-input>
+        <b-input v-model="password" type="password" password-reveal> </b-input>
+      </b-field>
+
+      <b-field label="Confirm Password">
+        <b-input xv-model="confirm_password" type="password" password-reveal>
+        </b-input>
       </b-field>
 
       <button @click="registration">submit</button>
@@ -32,10 +33,10 @@
 export default {
   data() {
     return {
-      name: '',
       email: '',
       password: '',
       username: '',
+      confirm_password: '',
     }
   },
   mounted() {

@@ -9,3 +9,12 @@ export const getUserList = async (token, payload) => {
   console.log(response.data.data)
   return response.data.data
 }
+
+export const logIn = (payload) => {
+  const data = {
+    name: payload.name,
+    email: payload.email,
+  }
+
+  return data
+}

@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     getData() {
-      alert('fetch Data')
+      // alert('fetch Data')
     },
   },
 }
