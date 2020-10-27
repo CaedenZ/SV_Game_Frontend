@@ -73,7 +73,6 @@ export default {
   methods: {
     login() {
       const loginInfo = {
-        session_key: this.$store.state.sKey,
         email: this.email,
         password: this.password,
       }
