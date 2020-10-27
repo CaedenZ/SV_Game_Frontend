@@ -5,5 +5,8 @@ export default () => ({
   userInfo: {
     email: 'zfy0120@gmail.com',
     userName: 'Caeden',
+    login: false,
+    score: null,
+    team: null,
   },
 })

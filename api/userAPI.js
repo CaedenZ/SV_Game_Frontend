@@ -1,4 +1,4 @@
-import $axios from 'plugins/axios'
+import $axios from '../plugins/axios'
 
 export const getUserList = async (token, payload) => {
   const data = {
@@ -12,8 +12,10 @@ export const getUserList = async (token, payload) => {
 
 export const logIn = (payload) => {
   const data = {
-    name: payload.name,
-    email: payload.email,
+    data: {
+      name: payload.name,
+      email: payload.email,
+    },
   }
 
   return data
