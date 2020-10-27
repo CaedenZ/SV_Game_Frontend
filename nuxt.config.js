@@ -46,6 +46,7 @@ export default {
     'nuxt-buefy',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
@@ -54,6 +55,28 @@ export default {
     baseURL: axiosCallURLs.baseURL,
     credentials: false,
     proxyHeaders: false,
+  },
+
+  auth: {
+    localStorage: false,
+    cookie: {
+      options: {
+        expires: 7,
+      },
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/token', method: 'post', propertyName: false },
+          logout: false,
+          user: { url: '/users/me', method: 'get', propertyName: false },
+        },
+      },
+    },
+    plugins: [
+      '~/plugins/axios.js',
+      { src: '~/plugins/auth.js', mode: 'client' },
+    ],
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

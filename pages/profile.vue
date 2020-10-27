@@ -51,7 +51,7 @@
               <a
                 href="https://en.wikipedia.org/wiki/Leicester_City_F.C."
                 title="Leicester City F.C."
-                >Leicester City</a
+                >Leicester</a
               >
               <strong>(C)</strong>
             </td>
@@ -71,17 +71,17 @@
               <a
                 href="https://en.wikipedia.org/wiki/Manchester_City_F.C."
                 title="Manchester City F.C."
-                >Manchester City</a
+                >Manchester</a
               >
             </td>
-            <td>38</td>
-            <td>19</td>
-            <td>9</td>
-            <td>10</td>
-            <td>71</td>
-            <td>41</td>
-            <td>+30</td>
-            <td>66</td>
+            <td>Google</td>
+            <td>Programmer</td>
+            <td>Logistic</td>
+            <td>Deep Learning</td>
+            <td>3</td>
+            <td>Aug 19</td>
+            <td></td>
+            <td>53</td>
             <td></td>
           </tr>
         </tbody>

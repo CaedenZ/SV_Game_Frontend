@@ -1,5 +1,12 @@
 <template>
-  <b-table :data="data" :columns="columns"></b-table>
+  <section class="section">
+    <div class="box">
+      <div class="content">
+        <h2 class="title">Leader Board</h2>
+      </div>
+      <b-table :data="data" :columns="columns"></b-table>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -11,42 +18,42 @@ export default {
           id: 1,
           first_name: 'Jesse',
           last_name: 'Simmons',
-          point: '5',
-          gender: 'Male',
+          point: '50',
+          email: 'Mal@a.com',
         },
         {
           id: 2,
           first_name: 'John',
           last_name: 'Jacobs',
-          point: '10',
-          gender: 'Male',
+          point: '44',
+          email: 'joh@a.com',
         },
         {
           id: 3,
           first_name: 'Tina',
           last_name: 'Gilbert',
           point: '20',
-          gender: 'Female',
+          email: 'Ti@a.com',
         },
         {
           id: 4,
           first_name: 'Clarence',
           last_name: 'Flores',
-          point: '30',
-          gender: 'Male',
+          point: '10',
+          email: 'Cla@a.com',
         },
         {
           id: 5,
           first_name: 'Anne',
           last_name: 'Lee',
-          point: '35',
-          gender: 'Female',
+          point: '5',
+          email: 'Anne@a.com',
         },
       ],
       columns: [
         {
           field: 'id',
-          label: 'ID',
+          label: 'Rank',
           width: '40',
           numeric: true,
         },
@@ -64,8 +71,8 @@ export default {
           centered: true,
         },
         {
-          field: 'gender',
-          label: 'Gender',
+          field: 'email',
+          label: 'Email',
         },
       ],
     }
