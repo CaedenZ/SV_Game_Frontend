@@ -1,5 +1,5 @@
 const axiosCallURLs = {
-  baseURL: 'https://rz69ag9ks1.execute-api.ap-southeast-1.amazonaws.com/v1/',
+  baseURL: '18.191.146.196:4000',
 }
 
 export default {

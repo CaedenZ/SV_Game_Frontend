@@ -75,6 +75,11 @@ export default {
           icon: 'lightbulb',
           to: { name: 'leaderboard' },
         },
+        {
+          title: 'Admin_TEST',
+          icon: 'lightbulb',
+          to: { name: 'admin' },
+        },
       ],
     }
   },
