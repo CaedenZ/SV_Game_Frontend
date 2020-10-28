@@ -1,12 +1,27 @@
 export default () => ({
   showNotification: false,
   notificationDetails: {},
-  sKey: '3qGlMbp049D2QD9WCWuI',
+  auth: '',
   userInfo: {
     email: 'zfy0120@gmail.com',
     userName: 'Caeden',
-    login: false,
     score: null,
-    team: null,
+  },
+  login: false,
+  teams: {},
+  users: {},
+  gameInfo: {
+    gameID: null,
+    teams: {},
+  },
+  teamInfo: {
+    teamID: null,
+    teamMembers: {},
+    teamScore: null,
+    companyName: null,
+    industry: null,
+    targetUser: null,
+    hotTrend: null,
+    teamRank: null,
   },
 })
