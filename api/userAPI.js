@@ -11,15 +11,15 @@ export const getUserList = async () => {
   return response.data.data
 }
 
-export const getUserByID = async (payload) => {
-  const response = await $axios.get('/users/' + payload)
+export const getUserByID = async function (payload) {
+  const response = await this.$axios.get('/users/' + payload)
   return response.data.data
 }
 
-export const updateUserScoreByID = async (payload) => {
+export const updateUserScoreByID = async function (payload) {
   const data = {
     score: payload.score,
   }
-  const response = await $axios.put('/users/' + payload.id, data)
+  const response = await this.$axios.put('/users/' + payload.id, data)
   return response.data.data
 }

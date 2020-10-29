@@ -54,7 +54,7 @@
 
 <script>
 import Cookie from 'js-cookie'
-import { logIn } from '../api/userAPI'
+// import { getUserList } from '../api/userAPI'
 export default {
   components: {},
   data() {
@@ -66,18 +66,22 @@ export default {
   inject: ['$validator'],
   mounted() {
     console.log('mounted')
+
+    this.$axios.get('/users').then((res) => {
+      console.log(res)
+    })
     // if (Cookie.get('userInfo')) {
     //   this.$router.push('/')
     // }
   },
   methods: {
-    login() {
+    async login() {
       const loginInfo = {
         email: this.email,
         password: this.password,
       }
-      // const retData = await this.$axios.$post('/login', loginInfo)
-      const retData = logIn(loginInfo)
+      const retData = await this.$axios.$post('/login', loginInfo)
+      console.log(retData)
       if (!retData.error) {
         // retData.data.address = JSON.parse(retData.data.address)
         this.$store.dispatch('setLoggedIn', retData.data)
