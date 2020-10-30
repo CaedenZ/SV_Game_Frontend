@@ -1,6 +1,6 @@
 <template>
   <section class="section is-main-section">
-    <hero-bar :has-right-visible="false"> User </hero-bar>
+    <hero-bar :has-right-visible="false"> Team </hero-bar>
     <tiles>
       <card-widget
         class="tile is-child"
@@ -27,7 +27,7 @@
       />
     </tiles>
 
-    <card-component title="Clients" class="has-table has-mobile-sort-spaced">
+    <card-component title="Teams" class="has-table has-mobile-sort-spaced">
       <Table :user-data="userData" :is-loading="isLoading" />
     </card-component>
   </section>

@@ -27,7 +27,7 @@
       />
     </tiles>
 
-    <card-component title="Clients" class="has-table has-mobile-sort-spaced">
+    <card-component title="Users" class="has-table has-mobile-sort-spaced">
       <Table :user-data="userData" :is-loading="isLoading" />
     </card-component>
   </section>
