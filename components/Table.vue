@@ -15,7 +15,7 @@
       :striped="true"
       :hoverable="true"
       default-sort="name"
-      :data="clients"
+      :data="userData"
     >
       <b-table-column
         cell-class="has-no-head-mobile is-image-cell"
@@ -25,17 +25,15 @@
           <img :src="props.row.avatar" class="is-rounded" />
         </div>
       </b-table-column>
-      <b-table-column label="id" field="id" sortable v-slot="props">
-        {{ props.row.id }}
-      </b-table-column>
-      <b-table-column label="Email" field="email" sortable v-slot="props">
-        {{ props.row.email }}
-      </b-table-column>
-      <b-table-column label="Name" field="name" sortable v-slot="props">
-        {{ props.row.name }}
-      </b-table-column>
-      <b-table-column label="Score" field="score" sortable v-slot="props">
-        {{ props.row.score }}
+      <b-table-column
+        v-for="field in Object.keys(userData[0])"
+        :label="field"
+        :field="field"
+        sortable
+        v-slot="props"
+        :key="field"
+      >
+        {{ props.row[field] }}
       </b-table-column>
       <b-table-column
         custom-key="actions"
@@ -83,14 +81,18 @@
 import ModalBox from '@/components/ModalBox'
 
 export default {
-  name: 'ClientsTableSample',
+  name: 'Table',
   components: { ModalBox },
   props: {
-    dataUrl: {
-      type: String,
+    userData: {
+      type: Array,
       default: null,
     },
     checkable: {
+      type: Boolean,
+      default: false,
+    },
+    isLoading: {
       type: Boolean,
       default: false,
     },
@@ -99,8 +101,6 @@ export default {
     return {
       isModalActive: false,
       trashObject: null,
-      clients: [],
-      isLoading: false,
       paginated: false,
       perPage: 10,
       checkedRows: [],
@@ -115,13 +115,7 @@ export default {
       return null
     },
   },
-  async mounted() {
-    console.log('test')
-    this.isLoading = true
-    const data = await this.$axios.get('/users')
-    this.clients = data.data
-    this.isLoading = false
-  },
+  mounted() {},
   methods: {
     trashModal(trashObject) {
       this.trashObject = trashObject

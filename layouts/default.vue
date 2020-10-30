@@ -76,9 +76,24 @@ export default {
           to: { name: 'leaderboard' },
         },
         {
-          title: 'Admin_TEST',
+          title: 'Admin_USER_TEST',
           icon: 'lightbulb',
-          to: { name: 'admin' },
+          to: '/admin/user',
+        },
+        {
+          title: 'Admin_CARD_TEST',
+          icon: 'lightbulb',
+          to: '/admin/card',
+        },
+        {
+          title: 'Admin_TEAM_TEST',
+          icon: 'lightbulb',
+          to: '/admin/team',
+        },
+        {
+          title: 'Admin_GAME_TEST',
+          icon: 'lightbulb',
+          to: '/admin/game',
         },
       ],
     }

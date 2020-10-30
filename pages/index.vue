@@ -45,7 +45,10 @@ export default {
     }
   },
   mounted() {
-    this.getData()
+    this.$buefy.snackbar.open({
+      message: 'Welcome back',
+      queue: false,
+    })
   },
   methods: {
     getData() {
