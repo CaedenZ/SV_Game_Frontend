@@ -3,9 +3,10 @@ export default () => ({
   notificationDetails: {},
   auth: '',
   userInfo: {
-    email: 'zfy0120@gmail.com',
-    userName: 'Caeden',
+    email: null,
+    userName: null,
     score: null,
+    userType: null,
   },
   login: false,
   teams: {},
@@ -13,6 +14,7 @@ export default () => ({
   gameInfo: {
     gameID: null,
     teams: {},
+    status: null,
   },
   teamInfo: {
     teamID: null,

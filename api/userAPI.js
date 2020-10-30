@@ -1,5 +1,13 @@
-export const getUserList = async function () {
-  const response = await this.$axios.get('/users/')
+import $axios from '../plugins/axios'
+
+export const logIn = (payload) => {
+  const data = payload
+  return data
+}
+
+export const getUserList = async () => {
+  console.log('here')
+  const response = await $axios.get('/users/')
   return response.data.data
 }
 
