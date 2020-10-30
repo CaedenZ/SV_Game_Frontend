@@ -20,7 +20,7 @@
       </b-field>
 
       <b-field label="Confirm Password">
-        <b-input xv-model="confirm_password" type="password" password-reveal>
+        <b-input v-model="confirmPassword" type="password" password-reveal>
         </b-input>
       </b-field>
 
@@ -30,25 +30,45 @@
 </template>
 
 <script>
+import Cookie from 'js-cookie'
 export default {
   data() {
     return {
       email: '',
       password: '',
       username: '',
-      confirm_password: '',
+      confirmPassword: '',
     }
   },
   mounted() {
     console.log('Mounter')
   },
   methods: {
-    registration() {
-      console.log(this.name)
-      this.$toast.open({
-        message: this.name,
-        type: 'info',
-      })
+    async registration() {
+      const regInfo = {
+        email: this.email,
+        password: this.password,
+        name: this.username,
+      }
+
+      if (this.password !== this.confirmPassword) {
+        this.$toast.open({
+          message: 'Please type the same password to confirm!',
+          type: 'error',
+        })
+      } else {
+        console.log(this.username)
+        const retData = await this.$axios.$post('/register', regInfo)
+        console.log(retData)
+        if (!retData.error) {
+          // retData.data.address = JSON.parse(retData.data.address)
+          this.$store.dispatch('setLoggedIn', retData.data)
+          Cookie.set('userInfo', retData.data, {
+            expires: 7,
+          })
+          this.$router.push('/')
+        }
+      }
     },
   },
 }
