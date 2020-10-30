@@ -66,13 +66,6 @@ export default {
   inject: ['$validator'],
   mounted() {
     console.log('mounted')
-
-    this.$axios.get('/users').then((res) => {
-      console.log(res)
-    })
-    // if (Cookie.get('userInfo')) {
-    //   this.$router.push('/')
-    // }
   },
   methods: {
     async login() {
