@@ -81,7 +81,6 @@
 
 <script>
 import ModalBox from '@/components/ModalBox'
-import { getUserList } from '../api/userAPI'
 
 export default {
   name: 'ClientsTableSample',
@@ -119,8 +118,9 @@ export default {
   async mounted() {
     console.log('test')
     this.isLoading = true
-    this.clients = await getUserList()
-    console.log(this.clients)
+    const data = await this.$axios.get('/users')
+    this.clients = data.data
+    this.isLoading = false
   },
   methods: {
     trashModal(trashObject) {
