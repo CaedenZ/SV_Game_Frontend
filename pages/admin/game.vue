@@ -6,29 +6,20 @@
         class="tile is-child"
         type="is-primary"
         icon="account-multiple"
-        :number="512"
-        label="Clients"
-      />
-      <card-widget
-        class="tile is-child"
-        type="is-info"
-        icon="cart-outline"
-        :number="7770"
-        prefix="$"
-        label="Sales"
+        :number="allUsers.length"
+        label="Users"
       />
       <card-widget
         class="tile is-child"
         type="is-success"
         icon="chart-timeline-variant"
-        :number="256"
-        suffix="%"
-        label="Performance"
+        :number="gameData.length"
+        label="Games"
       />
     </tiles>
 
     <card-component title="Games" class="has-table has-mobile-sort-spaced">
-      <Table :user-data="userData" :is-loading="isLoading" />
+      <Table :user-data="gameData" :is-loading="isLoading" />
     </card-component>
   </section>
 </template>
@@ -51,8 +42,9 @@ export default {
   },
   data() {
     return {
-      userData: [],
+      gameData: [],
       isLoading: true,
+      allUsers: {},
     }
   },
   computed: {
@@ -61,8 +53,13 @@ export default {
     },
   },
   async mounted() {
+    const users = await this.$axios.get('/users')
+    this.allUsers = users.data
+    // console.log(users.data)
+    // console.log(users.data.length)
     const data = await this.$axios.get('/games')
-    this.userData = data.data
+    // console.log(data)
+    this.gameData = data.data
     this.isLoading = false
   },
   methods: {},
