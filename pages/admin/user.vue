@@ -68,8 +68,6 @@ export default {
   async mounted() {
     const data = await this.$axios.get('/users')
     this.userData = data.data
-    console.log(this.userData)
-    console.log(Object.keys(this.userData[0]))
     this.isLoading = false
   },
   methods: {
@@ -82,6 +80,9 @@ export default {
       this.$buefy.snackbar.open({
         message: 'Confirmed',
         queue: false,
+      })
+      this.$axios.get('/users').then((res) => {
+        this.userData = res.data
       })
     },
     editCancel() {

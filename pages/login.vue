@@ -74,11 +74,10 @@ export default {
         password: this.password,
       }
       const retData = await this.$axios.$post('/login', loginInfo)
-      console.log(retData)
       if (!retData.error) {
         // retData.data.address = JSON.parse(retData.data.address)
-        this.$store.dispatch('setLoggedIn', retData.data)
-        Cookie.set('userInfo', retData.data, {
+        this.$store.dispatch('setLoggedIn', retData)
+        Cookie.set('userInfo', retData, {
           expires: 7,
         })
         this.$router.push('/')

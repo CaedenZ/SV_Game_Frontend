@@ -20,8 +20,15 @@
           <!-- navbar items -->
         </div>
 
-        <div class="navbar-end">
-          <a class="navbar-item" href="/profile">{{ currentUser.userName }}</a>
+        <div v-if="this.$store.state.userInfo.name" class="navbar-end">
+          <a class="navbar-item" href="/profile">{{
+            this.$store.state.userInfo.name
+          }}</a>
+          <a class="navbar-item" href="/">Logout</a>
+        </div>
+
+        <div v-else class="navbar-end">
+          <a class="navbar-item" href="/login">Login</a>
         </div>
       </div>
     </nav>
@@ -98,13 +105,8 @@ export default {
       ],
     }
   },
-  computed: {
-    currentUser() {
-      return this.$store.state.userInfo
-    },
-  },
   mounted() {
-    console.log(this.currentUser)
+    console.log(this.$store.state)
   },
 }
 </script>
