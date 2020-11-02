@@ -5,33 +5,17 @@
         <p class="modal-card-title">Confirm action</p>
       </header>
       <section class="modal-card-body" v-if="dataType === 'User'">
-        <label for="email" class="label">Email</label>
-        <p v-if="editObject" class="control">
-          <input
-            type="text"
-            class="input"
-            name="email"
-            v-model="editObject.email"
-          />
-        </p>
-        <label for="name" class="label">Name</label>
-        <p v-if="editObject" class="control">
-          <input
-            type="text"
-            class="input"
-            name="name"
-            v-model="editObject.name"
-          />
-        </p>
-        <label for="name" class="label">Score</label>
-        <p v-if="editObject" class="control">
-          <input
-            type="text"
-            class="input"
-            name="name"
-            v-model="editObject.score"
-          />
-        </p>
+        <div v-for="field in Object.keys(editObject)" :key="field">
+          <label for="email" class="label">{{ field }}</label>
+          <p v-if="editObject" class="control">
+            <input
+              type="text"
+              class="input"
+              name="email"
+              v-model="editObject[field]"
+            />
+          </p>
+        </div>
       </section>
       <footer class="modal-card-foot">
         <button class="button" type="button" @click="cancel">Cancel</button>
@@ -70,7 +54,7 @@ export default {
   data() {
     return {
       isEditActive: false,
-      editObject: { email: '', name: '', score: '', password: '123' },
+      editObject: {},
     }
   },
   watch: {

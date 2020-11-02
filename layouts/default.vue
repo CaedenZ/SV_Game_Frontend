@@ -103,6 +103,8 @@ export default {
       return this.$store.state.userInfo
     },
   },
-  mounted() {},
+  mounted() {
+    console.log(this.currentUser)
+  },
 }
 </script>
