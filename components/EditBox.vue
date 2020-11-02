@@ -91,7 +91,7 @@ export default {
       if (!this.isAdd) {
         const retData = await this.$axios.put(
           '/users/' + this.editObjectId,
-          updateUserInfo
+          this.editObject
         )
         console.log('here')
         console.log(retData)

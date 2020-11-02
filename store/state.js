@@ -4,9 +4,9 @@ export default () => ({
   auth: '',
   userInfo: {
     email: null,
-    userName: null,
+    name: null,
     score: null,
-    userType: null,
+    type: null,
   },
   login: false,
   teams: {},

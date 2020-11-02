@@ -16,8 +16,15 @@
       </div>
 
       <div class="navbar-menu">
-        <div class="navbar-start">
-          <!-- navbar items -->
+        <div
+          v-if="this.$store.state.userInfo.type == 'admin'"
+          class="navbar-start"
+        >
+          <div v-for="(item, key) of adminLink" :key="key" class="navbar-item">
+            <nuxt-link :to="item.to" exact-active-class="is-active">
+              <a class="navbar-item">{{ item.title }}</a>
+            </nuxt-link>
+          </div>
         </div>
 
         <div v-if="this.$store.state.userInfo.name" class="navbar-end">
@@ -100,6 +107,24 @@ export default {
         {
           title: 'Admin_GAME_TEST',
           icon: 'lightbulb',
+          to: '/admin/game',
+        },
+      ],
+      adminLink: [
+        {
+          title: 'user',
+          to: '/admin/user',
+        },
+        {
+          title: 'card',
+          to: '/admin/card',
+        },
+        {
+          title: 'team',
+          to: '/admin/team',
+        },
+        {
+          title: 'Game',
           to: '/admin/game',
         },
       ],
