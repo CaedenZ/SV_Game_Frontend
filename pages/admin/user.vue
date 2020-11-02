@@ -11,6 +11,19 @@
       />
     </tiles>
 
+    <edit-box
+      :is-active="isEditActive"
+      :data-type="tabledataType"
+      :is-add="isAdd"
+      @confirm="editConfirm"
+      @cancel="editCancel"
+    />
+
+    <button class="button" type="button" @click.prevent="editModal()">
+      ADD
+    </button>
+    <br />
+
     <card-component title="Users" class="has-table has-mobile-sort-spaced">
       <Table
         :user-data="userData"
@@ -39,6 +52,9 @@ export default {
   },
   data() {
     return {
+      tabledataType: 'User',
+      isEditActive: false,
+      isAdd: false,
       userData: {},
       isLoading: true,
       dataType: 'User',
@@ -56,6 +72,21 @@ export default {
     console.log(Object.keys(this.userData[0]))
     this.isLoading = false
   },
-  methods: {},
+  methods: {
+    editModal() {
+      this.isEditActive = true
+      this.isAdd = true
+    },
+    editConfirm() {
+      this.isEditActive = false
+      this.$buefy.snackbar.open({
+        message: 'Confirmed',
+        queue: false,
+      })
+    },
+    editCancel() {
+      this.isEditActive = false
+    },
+  },
 }
 </script>

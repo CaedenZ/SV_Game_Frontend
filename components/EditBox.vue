@@ -35,7 +35,12 @@
       </section>
       <footer class="modal-card-foot">
         <button class="button" type="button" @click="cancel">Cancel</button>
-        <button class="button is-danger" @click="confirm">Edit</button>
+        <button v-if="!isAdd" class="button is-danger" @click="confirm">
+          Edit
+        </button>
+        <button v-if="isAdd" class="button is-danger" @click="confirm">
+          Add
+        </button>
       </footer>
     </div>
   </b-modal>
@@ -57,11 +62,15 @@ export default {
       type: Number,
       default: 0,
     },
+    isAdd: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       isEditActive: false,
-      editObject: null,
+      editObject: { email: '', name: '', score: '', password: '123' },
     }
   },
   watch: {
@@ -74,7 +83,8 @@ export default {
       }
       console.log(this.dataType)
       console.log(this.editObjectId)
-      if (this.dataType === 'User') {
+      console.log(this.isAdd)
+      if (this.dataType === 'User' && !this.isAdd) {
         const retData = await this.$axios.get('/users/' + this.editObjectId)
         console.log(retData.data)
         this.editObject = retData.data
@@ -91,14 +101,20 @@ export default {
         email: this.editObject.email,
         name: this.editObject.name,
         score: this.editObject.score,
+        password: this.editObject.password,
       }
       console.log(updateUserInfo)
-      const retData = await this.$axios.put(
-        '/users/' + this.editObjectId,
-        updateUserInfo
-      )
-      console.log('here')
-      console.log(retData)
+      if (!this.isAdd) {
+        const retData = await this.$axios.put(
+          '/users/' + this.editObjectId,
+          updateUserInfo
+        )
+        console.log('here')
+        console.log(retData)
+      } else {
+        const retData = await this.$axios.post('/register', updateUserInfo)
+        console.log(retData)
+      }
       this.$emit('confirm')
     },
   },
