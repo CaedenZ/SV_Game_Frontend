@@ -19,7 +19,11 @@
     </tiles>
 
     <card-component title="Teams" class="has-table has-mobile-sort-spaced">
-      <Table :user-data="teamData" :is-loading="isLoading" />
+      <Table
+        :user-data="teamData"
+        :is-loading="isLoading"
+        :data-type="dataType"
+      />
     </card-component>
   </section>
 </template>
@@ -45,6 +49,7 @@ export default {
       teamData: [],
       isLoading: true,
       allUsers: {},
+      dataType: 'Team',
     }
   },
   computed: {

@@ -6,7 +6,7 @@
       </header>
       <section class="modal-card-body">
         <p>
-          This will permanently delete <b>{{ trashObjectName }}</b>
+          This will permanently delete <b>ID {{ trashObjectId }}</b>
         </p>
         <p>Action can not be undone.</p>
       </section>
@@ -26,9 +26,13 @@ export default {
       type: Boolean,
       default: false,
     },
-    trashObjectName: {
-      type: String,
+    trashObjectId: {
+      type: Number,
       default: null,
+    },
+    dataType: {
+      type: String,
+      default: '',
     },
   },
   data() {
@@ -50,7 +54,21 @@ export default {
     cancel() {
       this.$emit('cancel')
     },
-    confirm() {
+    async confirm() {
+      if (this.dataType === 'User') {
+        const retData = await this.$axios.delete('/users/' + this.trashObjectId)
+        console.log(retData)
+      }
+      if (this.dataType === 'Card') {
+        await this.$axios.delete('/cards/' + this.trashObjectId)
+      }
+      if (this.dataType === 'Game') {
+        const retData = await this.$axios.delete('/games/' + this.trashObjectId)
+        console.log(retData)
+      }
+      if (this.dataType === 'Team') {
+        await this.$axios.delete('/teams/' + this.trashObjectId)
+      }
       this.$emit('confirm')
     },
   },

@@ -2,9 +2,17 @@
   <div>
     <modal-box
       :is-active="isModalActive"
-      :trash-object-name="trashObjectName"
+      :trash-object-id="trashObjectID"
+      :data-type="tabledataType"
       @confirm="trashConfirm"
       @cancel="trashCancel"
+    />
+    <edit-box
+      :is-active="isEditActive"
+      :edit-object-id="editObjectID"
+      :data-type="tabledataType"
+      @confirm="editConfirm"
+      @cancel="editCancel"
     />
     <b-table
       :checked-rows.sync="checkedRows"
@@ -16,10 +24,11 @@
       :hoverable="true"
       default-sort="name"
       :data="userData"
+      :data-type="dataType"
     >
       <b-table-column
-        cell-class="has-no-head-mobile is-image-cell"
         v-slot="props"
+        cell-class="has-no-head-mobile is-image-cell"
       >
         <div class="image">
           <img :src="props.row.avatar" class="is-rounded" />
@@ -27,26 +36,61 @@
       </b-table-column>
       <b-table-column
         v-for="field in Object.keys(userData[0])"
+        v-slot="props"
+        :key="field"
         :label="field"
         :field="field"
         sortable
-        v-slot="props"
-        :key="field"
       >
         {{ props.row[field] }}
       </b-table-column>
       <b-table-column
+        v-slot="props"
         custom-key="actions"
         cell-class="is-actions-cell"
-        v-slot="props"
       >
-        <div class="buttons is-right">
-          <router-link
-            :to="{ name: 'client.edit', params: { id: props.row.id } }"
-            class="button is-small is-primary"
+        <div v-if="dataType === 'User'" class="buttons is-right">
+          <button
+            class="button is-small is-danger"
+            type="button"
+            @click.prevent="editModal(props.row)"
           >
             <b-icon icon="account-edit" size="is-small" />
-          </router-link>
+          </button>
+          <button
+            class="button is-small is-danger"
+            type="button"
+            @click.prevent="trashModal(props.row)"
+          >
+            <b-icon icon="trash-can" size="is-small" />
+          </button>
+        </div>
+        <div v-if="dataType === 'Team'" class="buttons is-right">
+          <button
+            class="button is-small is-danger"
+            type="button"
+            @click.prevent="editModal(props.row)"
+          >
+            <b-icon icon="account-edit" size="is-small" />
+          </button>
+          <button
+            class="button is-small is-danger"
+            type="button"
+            @click.prevent="trashModal(props.row)"
+          >
+            <b-icon icon="trash-can" size="is-small" />
+          </button>
+        </div>
+        <div v-if="dataType === 'Game'" class="buttons is-right">
+          <button
+            class="button is-small is-danger"
+            type="button"
+            @click.prevent="trashModal(props.row)"
+          >
+            <b-icon icon="trash-can" size="is-small" />
+          </button>
+        </div>
+        <div v-if="dataType === 'Card'" class="buttons is-right">
           <button
             class="button is-small is-danger"
             type="button"
@@ -79,10 +123,11 @@
 
 <script>
 import ModalBox from '@/components/ModalBox'
+import EditBox from '@/components/EditBox'
 
 export default {
   name: 'Table',
-  components: { ModalBox },
+  components: { ModalBox, EditBox },
   props: {
     userData: {
       type: Array,
@@ -96,27 +141,60 @@ export default {
       type: Boolean,
       default: false,
     },
+    dataType: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
       isModalActive: false,
+      isEditActive: false,
+      editObject: null,
       trashObject: null,
       paginated: false,
       perPage: 10,
       checkedRows: [],
+      tabledataType: this.dataType,
     }
   },
   computed: {
-    trashObjectName() {
+    trashObjectID() {
       if (this.trashObject) {
-        return this.trashObject.name
+        console.log(this.trashObject.id)
+        return this.trashObject.id
       }
-
+      return null
+    },
+    editObjectID() {
+      if (this.editObject) {
+        console.log(this.editObject.id)
+        return this.editObject.id
+      }
       return null
     },
   },
-  mounted() {},
+  mounted() {
+    console.log(this.dataType)
+    console.log(this.userData)
+    console.log(this.tabledataType)
+  },
   methods: {
+    editModal(editObject) {
+      this.editObject = editObject
+      this.isEditActive = true
+      console.log(editObject)
+    },
+    editConfirm() {
+      this.isEditActive = false
+      this.$buefy.snackbar.open({
+        message: 'Confirmed',
+        queue: false,
+      })
+    },
+    editCancel() {
+      this.isEditActive = false
+    },
     trashModal(trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
