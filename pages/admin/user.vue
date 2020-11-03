@@ -88,6 +88,18 @@ export default {
     editCancel() {
       this.isEditActive = false
     },
+    async onUpdate(id, payload) {
+      const retData = await this.$axios.put('/users/' + id, payload)
+      console.log(retData)
+    },
+    async onCreate(payload) {
+      const retData = await this.$axios.post('/register', payload)
+      console.log(retData)
+    },
+    async onDelete(id) {
+      const retData = await this.$axios.delete('/users/' + id)
+      console.log(retData)
+    },
   },
 }
 </script>
