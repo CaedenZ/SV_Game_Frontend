@@ -1,13 +1,14 @@
 <template>
   <section class="section">
     <div class="columns">
-      <div class="column is-10">
+      <div class="column is-2 box main-content"></div>
+      <div class="column is-8">
         <Team v-for="(team, key) of teams" :key="key" :title="'Group ' + key">
           <p v-for="(member, ckey) of team.members" :key="ckey">{{ member }}</p>
         </Team>
       </div>
 
-      <div class="column is-2 box">
+      <div v-if="this.$store.state.userInfo.name" class="column is-2 box">
         <li v-for="(message, key) of messages" :key="key">
           {{ message.user + ' : ' + message.text }}
         </li>
@@ -75,18 +76,18 @@ export default {
     })
   },
   created() {
-    console.log('Starting Websocket Connection')
-    this.connection = new WebSocket(
-      'ws://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000'
-    )
-    this.connection.onopen = (event) => {
-      console.log(event)
-      console.log('Successful Connected')
-    }
+    if (this.$store.state.userInfo.name) {
+      console.log('Starting Websocket Connection')
+      this.connection = new WebSocket('ws://localhost:4000')
+      this.connection.onopen = (event) => {
+        console.log(event)
+        console.log('Successful Connected')
+      }
 
-    this.connection.onmessage = (event) => {
-      console.log(event)
-      this.messages.push(JSON.parse(event.data))
+      this.connection.onmessage = (event) => {
+        console.log(event)
+        this.messages.push(JSON.parse(event.data))
+      }
     }
   },
   methods: {

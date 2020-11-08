@@ -1,5 +1,5 @@
 const axiosCallURLs = {
-  baseURL: 'http://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000',
+  baseURL: 'http://localhost:4000',
 }
 
 export default {
@@ -81,6 +81,7 @@ export default {
     plugins: [
       '~/plugins/axios.js',
       { src: '~/plugins/auth.js', mode: 'client' },
+      { src: '~/plugins/persistedState.client.js' },
     ],
   },
 
