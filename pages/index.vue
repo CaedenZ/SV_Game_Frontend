@@ -1,11 +1,31 @@
 <template>
   <section class="section">
-    <div class="columns is-mobile">
-      <Team v-for="(team, key) of teams" :key="key" :title="'Group ' + key">
-        <p v-for="(member, ckey) of team.members" :key="ckey">{{ member }}</p>
-      </Team>
+    <div class="columns">
+      <div class="column is-10">
+        <Team v-for="(team, key) of teams" :key="key" :title="'Group ' + key">
+          <p v-for="(member, ckey) of team.members" :key="ckey">{{ member }}</p>
+        </Team>
+      </div>
+
+      <div class="column is-2 box">
+        <li v-for="(message, key) of messages" :key="key">
+          {{ message.user + ' : ' + message.text }}
+        </li>
+        <div class="field has-addons">
+          <div class="control">
+            <input
+              class="input"
+              v-model="input"
+              type="text"
+              placeholder="input here"
+            />
+          </div>
+          <div class="control">
+            <a class="button is-info" @click="sendMessage"> Send </a>
+          </div>
+        </div>
+      </div>
     </div>
-    <button @click="sendMessage('hello')">Send</button>
   </section>
 </template>
 
@@ -44,6 +64,8 @@ export default {
           ],
         },
       ],
+      messages: [],
+      input: '',
     }
   },
   mounted() {
@@ -64,12 +86,17 @@ export default {
 
     this.connection.onmessage = (event) => {
       console.log(event)
+      this.messages.push(JSON.parse(event.data))
     }
   },
   methods: {
-    sendMessage(message) {
-      console.log(message)
-      this.connection.send(message)
+    sendMessage() {
+      console.log(this.input)
+      const msg = {
+        user: this.$store.state.userInfo.name,
+        text: this.input,
+      }
+      this.connection.send(JSON.stringify(msg))
     },
   },
 }
