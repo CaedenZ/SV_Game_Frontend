@@ -5,6 +5,7 @@
         <p v-for="(member, ckey) of team.members" :key="ckey">{{ member }}</p>
       </Team>
     </div>
+    <button @click="sendMessage('hello')">Send</button>
   </section>
 </template>
 
@@ -19,6 +20,7 @@ export default {
   },
   data() {
     return {
+      connection: null,
       teams: [
         { members: ['Mac', 'Pablo', 'Keiren Fletcher', 'Safwan Cox'] },
         { members: ['Caius Finch', 'Vlad Stevenson', 'Anil Correa'] },
@@ -50,9 +52,24 @@ export default {
       queue: false,
     })
   },
+  created() {
+    console.log('Starting Websocket Connection')
+    this.connection = new WebSocket(
+      'ws://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000'
+    )
+    this.connection.onopen = (event) => {
+      console.log(event)
+      console.log('Successful Connected')
+    }
+
+    this.connection.onmessage = (event) => {
+      console.log(event)
+    }
+  },
   methods: {
-    getData() {
-      // alert('fetch Data')
+    sendMessage(message) {
+      console.log(message)
+      this.connection.send(message)
     },
   },
 }
