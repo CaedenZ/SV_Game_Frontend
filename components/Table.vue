@@ -94,6 +94,13 @@
           <button
             class="button is-small is-danger"
             type="button"
+            @click.prevent="editModal(props.row)"
+          >
+            <b-icon icon="account-edit" size="is-small" />
+          </button>
+          <button
+            class="button is-small is-danger"
+            type="button"
             @click.prevent="trashModal(props.row)"
           >
             <b-icon icon="trash-can" size="is-small" />

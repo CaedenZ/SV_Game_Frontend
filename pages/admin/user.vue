@@ -13,7 +13,7 @@
 
     <edit-box
       :is-active="isEditActive"
-      :data-type="tabledataType"
+      :data-type="dataType"
       :is-add="isAdd"
       @confirm="editConfirm"
       @cancel="editCancel"
@@ -52,7 +52,6 @@ export default {
   },
   data() {
     return {
-      tabledataType: 'User',
       isEditActive: false,
       isAdd: false,
       userData: {},
@@ -83,6 +82,7 @@ export default {
       })
       this.$axios.get('/users').then((res) => {
         this.userData = res.data
+        console.log(this.userData)
       })
     },
     editCancel() {
