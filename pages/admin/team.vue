@@ -18,6 +18,19 @@
       />
     </tiles>
 
+    <edit-box
+      :is-active="isEditActive"
+      :data-type="dataType"
+      :is-add="isAdd"
+      @confirm="editConfirm"
+      @cancel="editCancel"
+    />
+
+    <button class="button" type="button" @click.prevent="editModal()">
+      ADD
+    </button>
+    <br />
+
     <card-component title="Teams" class="has-table has-mobile-sort-spaced">
       <Table
         :user-data="teamData"
@@ -50,6 +63,8 @@ export default {
       isLoading: true,
       allUsers: {},
       dataType: 'Team',
+      isEditActive: false,
+      isAdd: false,
     }
   },
   computed: {
@@ -64,6 +79,37 @@ export default {
     const users = await this.$axios.get('/users')
     this.allUsers = users.data
   },
-  methods: {},
+  methods: {
+    editModal() {
+      this.isEditActive = true
+      this.isAdd = true
+    },
+    editConfirm() {
+      this.isEditActive = false
+      this.$buefy.snackbar.open({
+        message: 'Confirmed',
+        queue: false,
+      })
+      this.$axios.get('/teams').then((res) => {
+        this.teamData = res.data
+        console.log(this.teamData)
+      })
+    },
+    editCancel() {
+      this.isEditActive = false
+    },
+    async onUpdate(id, payload) {
+      const retData = await this.$axios.put('/teams/' + id, payload)
+      console.log(retData)
+    },
+    async onCreate(payload) {
+      const retData = await this.$axios.post('/teams/', payload)
+      console.log(retData)
+    },
+    async onDelete(id) {
+      const retData = await this.$axios.delete('/teams/' + id)
+      console.log(retData)
+    },
+  },
 }
 </script>
