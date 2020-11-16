@@ -1,10 +1,39 @@
 <template>
   <section class="section">
-    <div class="columns">
+    <div v-if="status !== 'game'" class="columns">
       <div class="column is-8">
-        <Team v-for="(team, key) of teams" :key="key" :title="'Group ' + key">
-          <p v-for="(member, ckey) of team.members" :key="ckey">{{ member }}</p>
+        <Team
+          v-for="(team, key, index) in teams"
+          :key="key"
+          :title="'Group ' + index"
+        >
+          <p v-for="(member, ckey) of team.members" :key="ckey">
+            {{ member }}
+          </p>
         </Team>
+        <div v-if="this.$store.state.userInfo.name">
+          <button @click="startGame">Start</button>
+          <button @click="testCard">Test Card</button>
+          <div class="field has-addons">
+            <div class="control">
+              <input
+                class="input"
+                v-model="noOfTeam"
+                type="text"
+                placeholder="input here"
+              />
+            </div>
+            <div class="control">
+              <a
+                class="button is-info"
+                @click="assignTeam"
+                style="background: #6b63d8"
+              >
+                Shuffle
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div
@@ -50,6 +79,16 @@
         </div>
       </div>
     </div>
+    <Game
+      v-else
+      :companycards="companycards"
+      :targetcards="targetcards"
+      :industrycards="industrycards"
+      :selectedCards="selectedCards"
+      :select="select"
+      :reviewHotTrend="reviewHotTrend"
+    />
+    <button @click="review">Review</button>
   </section>
 </template>
 
@@ -71,41 +110,50 @@
 
 <script>
 import Team from '~/components/Team'
-
+import Game from '~/components/Game'
 export default {
   name: 'HomePage',
 
   components: {
     Team,
+    Game,
   },
   data() {
     return {
+      status: 'pre',
       connection: null,
-      teams: [
-        { members: ['Mac', 'Pablo', 'Keiren Fletcher', 'Safwan Cox'] },
-        { members: ['Caius Finch', 'Vlad Stevenson', 'Anil Correa'] },
-        {
-          members: [
-            'Maizie Morrow',
-            'Woody Raymond',
-            'Renesmae Sandoval',
-            'Tamanna Greenwood',
-            'Kierran Melia',
-            'Sia Wood',
-          ],
-        },
-        {
-          members: [
-            'Kaison Lugo',
-            'Georga Ferrell',
-            'Helen Kaiser',
-            'Bobbie Lyons',
-            'Tomos Gates',
-          ],
-        },
-      ],
+      teams: {
+        0: [
+          'Maizie Morrow',
+          'Woody Raymond',
+          'Renesmae Sandoval',
+          'Tamanna Greenwood',
+          'Kierran Melia',
+          'Sia Wood',
+        ],
+        1: [
+          'Kaison Lugo',
+          'Georga Ferrell',
+          'Helen Kaiser',
+          'Bobbie Lyons',
+          'Tomos Gates',
+        ],
+        2: ['Caius Finch', 'Vlad Stevenson', 'Anil Correa'],
+        3: ['Mac', 'Pablo', 'Keiren Fletcher', 'Safwan Cox'],
+      },
+      companycards: [],
+      targetcards: [],
+      industrycards: [],
+      selectedCards: {
+        companyName: '',
+        targetUser: '',
+        industry: '',
+        hotTrend: '',
+      },
       messages: [],
       input: '',
+      noOfTeam: 4,
+      reviewHotTrend: false,
     }
   },
   mounted() {
@@ -113,6 +161,7 @@ export default {
       message: 'Welcome back',
       queue: false,
     })
+    console.log(this.messages)
   },
   created() {
     if (this.$store.state.userInfo.name) {
@@ -123,11 +172,29 @@ export default {
       this.connection.onopen = (event) => {
         console.log(event)
         console.log('Successful Connected')
+        this.connection.send(this.$store.state.userInfo.name)
       }
 
       this.connection.onmessage = (event) => {
-        console.log(event)
-        this.messages.push(JSON.parse(event.data))
+        const data = JSON.parse(event.data)
+        console.log(data)
+        if (data.type === 'message') {
+          this.messages.push(data.data)
+        } else if (data.type === 'team') {
+          this.teams = data.data
+          console.log(this.teams)
+        } else if (data.type === 'start') {
+          this.status = 'game'
+        } else if (data.type === 'card') {
+          this.cards = data.data
+          this.selectedCards.hotTrend = this.cards.find(
+            (element) => element.type === 'Hot Trend'
+          ).name
+          this.companycards = data.data.filter((e) => e.type === 'Company Name')
+          this.industrycards = data.data.filter((e) => e.type === 'Industry')
+          this.targetcards = data.data.filter((e) => e.type === 'Target User')
+          console.log(this.companycards)
+        }
       }
     }
   },
@@ -138,7 +205,39 @@ export default {
         user: this.$store.state.userInfo.name,
         text: this.input,
       }
-      this.connection.send(JSON.stringify(msg))
+      const res = {
+        type: 'message',
+        data: msg,
+      }
+      this.connection.send(JSON.stringify(res))
+    },
+    assignTeam() {
+      const res = {
+        type: 'team',
+        data: this.noOfTeam,
+      }
+      this.connection.send(JSON.stringify(res))
+    },
+    startGame() {
+      const res = {
+        type: 'start',
+      }
+      this.connection.send(JSON.stringify(res))
+      this.status = 'game'
+    },
+    testCard() {
+      const res = {
+        type: 'card',
+      }
+      this.connection.send(JSON.stringify(res))
+    },
+    select(type, name) {
+      if (type === 'Company Name') this.selectedCards.companyName = name
+      else if (type === 'Target User') this.selectedCards.targetUser = name
+      else if (type === 'Industry') this.selectedCards.industry = name
+    },
+    review() {
+      this.reviewHotTrend = true
     },
   },
 }
