@@ -1,6 +1,6 @@
 <template>
   <section class="section">
-    <div v-if="status !== 'game'" class="columns">
+    <div v-if="status === 'waiting'" class="columns">
       <div class="column is-8">
         <Team
           v-for="(team, key, index) in teams"
@@ -120,7 +120,7 @@ export default {
   },
   data() {
     return {
-      status: 'pre',
+      status: 'waiting',
       connection: null,
       teams: {
         0: [
@@ -238,6 +238,9 @@ export default {
     },
     review() {
       this.reviewHotTrend = true
+    },
+    vote() {
+      this.status = 'vote'
     },
   },
 }
