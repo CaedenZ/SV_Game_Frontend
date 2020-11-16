@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="is-half">
-      <b-field label="Email">
+      <b-field label="Email" style="width: 300px">
         <b-input
           v-model="email"
           v-validate="'required|email'"
@@ -11,20 +11,25 @@
         </b-input>
       </b-field>
 
-      <b-field label="Username">
+      <b-field label="Username" style="width: 300px">
         <b-input v-model="username" maxlength="30"></b-input>
       </b-field>
 
-      <b-field label="Password">
+      <b-field label="Password" style="width: 300px">
         <b-input v-model="password" type="password" password-reveal> </b-input>
       </b-field>
 
-      <b-field label="Confirm Password">
+      <b-field label="Confirm Password" style="width: 300px">
         <b-input v-model="confirmPassword" type="password" password-reveal>
         </b-input>
       </b-field>
-
-      <button @click="registration">submit</button>
+      <b-button
+        type="is-warning"
+        rounded
+        style="width: 300px"
+        @click="registration"
+        >Sign up</b-button
+      >
     </div>
   </section>
 </template>

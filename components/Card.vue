@@ -32,12 +32,24 @@ export default {
 
 <style lang="scss">
 .companyname {
-  color: green;
+  background: #3b3b98;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  width: 200px;
+  height: 40px;
 }
 .industry {
-  color: palevioletred;
+  background: #fd7272;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  width: 200px;
+  height: 40px;
 }
 .targetuser {
-  color: aqua;
+  background: #55e6c1;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  width: 200px;
+  height: 40px;
 }
 </style>

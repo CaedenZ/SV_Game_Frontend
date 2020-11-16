@@ -1,50 +1,51 @@
 <template>
   <section class="section">
-    <form class="formSectionBox" @submit.prevent="validateBeforeSubmit">
-      <div class="field">
-        <p
-          class="control is-expanded"
-          :class="{ wrongInput: errors.has('email') }"
-        >
-          EMAIL
-          <span
-            v-if="errors.first('email')"
-            class="has-text-danger is-pulled-right"
-            >!</span
+    <v-layout justify-center>
+      <form class="formSectionBox" @submit.prevent="validateBeforeSubmit">
+        <div class="field">
+          <p
+            class="control is-expanded"
+            :class="{ wrongInput: errors.has('email') }"
           >
+            EMAIL
+          </p>
+          <span v-if="errors.first('email')" class="has-text-danger">!</span>
+
           <input
             v-model="email"
             v-validate="'required|email'"
             name="email"
             class="input"
             type="email"
+            style="width: 300px"
           />
-        </p>
-      </div>
-      <div class="field">
-        <p
-          class="control is-expanded"
-          :class="{ wrongInput: errors.has('password') }"
-        >
-          PASSWORD
-          <span
-            v-if="errors.first('password')"
-            class="has-text-danger is-pulled-right"
-            >!</span
+        </div>
+        <div class="field">
+          <p
+            class="control is-expanded"
+            :class="{ wrongInput: errors.has('password') }"
           >
+            PASSWORD
+          </p>
+          <span v-if="errors.first('password')" class="has-text-danger">!</span>
           <input
             v-model="password"
             v-validate="'required|alpha_num'"
             name="password"
             class="input"
             type="password"
+            style="width: 300px"
           />
-        </p>
-      </div>
-      <div class="has-text-right">
-        <button :onClick="validateBeforeSubmit">Login</button>
-      </div>
-    </form>
+        </div>
+        <b-button
+          type="is-warning"
+          rounded
+          style="width: 300px"
+          :onClick="validateBeforeSubmit"
+          >Login</b-button
+        >
+      </form>
+    </v-layout>
     <p class="container" id="loginLinks">
       <nuxt-link :to="'register'">Sign Up</nuxt-link>&nbsp;·
       <nuxt-link :to="'forgotpassword'">Forgot Password</nuxt-link>
@@ -76,7 +77,8 @@ export default {
       const retData = await this.$axios.$post('/login', loginInfo)
       if (!retData.error) {
         // retData.data.address = JSON.parse(retData.data.address)
-        this.$store.dispatch('setLoggedIn', retData)
+        this.$store.commit('login', true)
+        console.log(this.$store.state.login)
         Cookie.set('userInfo', retData, {
           expires: 7,
         })

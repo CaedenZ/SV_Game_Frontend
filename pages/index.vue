@@ -88,7 +88,7 @@
       :select="select"
       :reviewHotTrend="reviewHotTrend"
     />
-    <button @click="review">Review</button>
+    <b-button type="is-warning" rounded @click="review">Review</b-button>
   </section>
 </template>
 

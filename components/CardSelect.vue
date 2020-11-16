@@ -2,7 +2,16 @@
   <div class="column is-3">
     <div class="card" :class="title">
       <header class="card-header">
-        <p class="card-header-title has-text-grey">
+        <p
+          class="card-header-title has-text-white"
+          style="
+            background: #ffd32a;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            width: 200px;
+            height: 40px;
+          "
+        >
           {{ title }}
         </p>
       </header>
@@ -12,7 +21,12 @@
         </div>
       </div>
       <footer class="card-footer">
-        <a @click="select(title, content)" class="card-footer-item">Select</a>
+        <a
+          @click="select(title, content)"
+          class="card-footer-item"
+          style="color: #f97f51"
+          >SELECT</a
+        >
       </footer>
     </div>
   </div>
