@@ -1,5 +1,12 @@
 <template>
   <section class="section">
+    <select-team
+      :isActive="status === 'vote'"
+      :teams="voting"
+      :vote="vote"
+      :result="result"
+    />
+    <result :isActive="status === 'result'" :teams="finalResult" />
     <div v-if="status === 'waiting'" class="columns">
       <div class="column is-8">
         <Team
@@ -80,7 +87,7 @@
       </div>
     </div>
     <Game
-      v-else
+      v-else-if="status === 'game'"
       :companycards="companycards"
       :targetcards="targetcards"
       :industrycards="industrycards"
@@ -89,6 +96,7 @@
       :reviewHotTrend="reviewHotTrend"
     />
     <b-button type="is-warning" rounded @click="sendReview">Review</b-button>
+    <b-button type="is-danger" rounded @click="startvote">Vote</b-button>
   </section>
 </template>
 
@@ -111,12 +119,14 @@
 <script>
 import Team from '~/components/Team'
 import Game from '~/components/Game'
+import SelectTeam from '~/components/SelectTeam'
 export default {
   name: 'HomePage',
 
   components: {
     Team,
     Game,
+    SelectTeam,
   },
   data() {
     return {
@@ -137,6 +147,7 @@ export default {
       noOfTeam: 2,
       reviewHotTrend: false,
       voting: {},
+      finalResult: {},
     }
   },
   mounted() {
@@ -191,6 +202,10 @@ export default {
             this.voting = data.data
             this.status = 'vote'
             console.log(data.data)
+            break
+          case 'result':
+            this.finalResult = data.data
+            this.status = 'result'
             break
           default:
           // code block
@@ -270,6 +285,17 @@ export default {
         data,
       }
       this.connection.send(JSON.stringify(res))
+    },
+    result() {
+      const res = {
+        type: 'result',
+      }
+      this.connection.send(JSON.stringify(res))
+    },
+
+    selectModal(teams) {
+      this.isSelectActive = true
+      console.log(teams)
     },
   },
 }

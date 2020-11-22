@@ -2,7 +2,7 @@
   <b-modal :active="isActive" has-modal-card>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Select Your Favourite Team</p>
+        <p class="modal-card-title">Final Result</p>
       </header>
       <section class="modal-card-body">
         <Team v-for="(team, key) in teams" :key="key" :title="'Group ' + key">
@@ -10,11 +10,10 @@
           <p>Target User : {{ team.targetUser }}</p>
           <p>Industry : {{ team.industry }}</p>
           <p>Hot Trend : {{ team.hotTrend }}</p>
-          <b-button rounded @click="vote(key)">Vote</b-button>
+          <p>Score : {{ team.score }}</p>
         </Team>
       </section>
     </div>
-    <b-button rounded @click="result">Review Result</b-button>
   </b-modal>
 </template>
 
@@ -28,12 +27,6 @@ export default {
     },
     teams: {
       type: Object,
-    },
-    vote: {
-      type: Function,
-    },
-    result: {
-      type: Function,
     },
   },
   methods: {},
