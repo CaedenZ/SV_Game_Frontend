@@ -14,6 +14,7 @@
       @confirm="editConfirm"
       @cancel="editCancel"
     />
+    <select-team :is-active="isSelectActive" :teams="teams" />
     <b-table
       :checked-rows.sync="checkedRows"
       :checkable="checkable"
@@ -108,6 +109,14 @@
         </div>
       </b-table-column>
 
+      <button
+        class="button is-small is-danger"
+        type="button"
+        @click.prevent="selectModal(teams)"
+      >
+        <p>Vote</p>
+      </button>
+
       <section slot="empty" class="section">
         <div class="content has-text-grey has-text-centered">
           <template v-if="isLoading">
@@ -131,10 +140,11 @@
 <script>
 import ModalBox from '@/components/ModalBox'
 import EditBox from '@/components/EditBox'
+import SelectTeam from '@/components/SelectTeam'
 
 export default {
   name: 'Table',
-  components: { ModalBox, EditBox },
+  components: { ModalBox, EditBox, SelectTeam },
   props: {
     userData: {
       type: Array,
@@ -157,8 +167,10 @@ export default {
     return {
       isModalActive: false,
       isEditActive: false,
+      isSelectActive: false,
       editObject: null,
       trashObject: null,
+      teams: [],
       paginated: false,
       perPage: 10,
       checkedRows: [],
@@ -177,6 +189,13 @@ export default {
       if (this.editObject) {
         console.log(this.editObject.id)
         return this.editObject.id
+      }
+      return null
+    },
+    selectTeam() {
+      if (this.teams) {
+        console.log(this.teams)
+        return this.teams
       }
       return null
     },
@@ -215,6 +234,12 @@ export default {
     },
     trashCancel() {
       this.isModalActive = false
+    },
+    async selectModal(teams) {
+      const retData = await this.$axios.get('/teams')
+      this.teams = retData.data
+      this.isSelectActive = true
+      console.log(teams)
     },
   },
 }
