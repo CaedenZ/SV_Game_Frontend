@@ -160,7 +160,9 @@ export default {
   created() {
     if (this.$store.state.userInfo.name) {
       console.log('Starting Websocket Connection')
-      this.connection = new WebSocket('ws://192.168.1.105:4000')
+      this.connection = new WebSocket(
+        'ws://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000'
+      )
       this.connection.onopen = (event) => {
         console.log(event)
         console.log('Successful Connected')
