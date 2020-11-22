@@ -88,7 +88,7 @@
       :select="select"
       :reviewHotTrend="reviewHotTrend"
     />
-    <b-button type="is-warning" rounded @click="review">Review</b-button>
+    <b-button type="is-warning" rounded @click="sendReview">Review</b-button>
   </section>
 </template>
 
@@ -122,25 +122,7 @@ export default {
     return {
       status: 'waiting',
       connection: null,
-      teams: {
-        0: [
-          'Maizie Morrow',
-          'Woody Raymond',
-          'Renesmae Sandoval',
-          'Tamanna Greenwood',
-          'Kierran Melia',
-          'Sia Wood',
-        ],
-        1: [
-          'Kaison Lugo',
-          'Georga Ferrell',
-          'Helen Kaiser',
-          'Bobbie Lyons',
-          'Tomos Gates',
-        ],
-        2: ['Caius Finch', 'Vlad Stevenson', 'Anil Correa'],
-        3: ['Mac', 'Pablo', 'Keiren Fletcher', 'Safwan Cox'],
-      },
+      teams: {},
       companycards: [],
       targetcards: [],
       industrycards: [],
@@ -152,8 +134,9 @@ export default {
       },
       messages: [],
       input: '',
-      noOfTeam: 4,
+      noOfTeam: 2,
       reviewHotTrend: false,
+      voting: {},
     }
   },
   mounted() {
@@ -166,9 +149,7 @@ export default {
   created() {
     if (this.$store.state.userInfo.name) {
       console.log('Starting Websocket Connection')
-      this.connection = new WebSocket(
-        'ws://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000'
-      )
+      this.connection = new WebSocket('ws://192.168.1.105:4000')
       this.connection.onopen = (event) => {
         console.log(event)
         console.log('Successful Connected')
@@ -178,22 +159,41 @@ export default {
       this.connection.onmessage = (event) => {
         const data = JSON.parse(event.data)
         console.log(data)
-        if (data.type === 'message') {
-          this.messages.push(data.data)
-        } else if (data.type === 'team') {
-          this.teams = data.data
-          console.log(this.teams)
-        } else if (data.type === 'start') {
-          this.status = 'game'
-        } else if (data.type === 'card') {
-          this.cards = data.data
-          this.selectedCards.hotTrend = this.cards.find(
-            (element) => element.type === 'Hot Trend'
-          ).name
-          this.companycards = data.data.filter((e) => e.type === 'Company Name')
-          this.industrycards = data.data.filter((e) => e.type === 'Industry')
-          this.targetcards = data.data.filter((e) => e.type === 'Target User')
-          console.log(this.companycards)
+        switch (data.type) {
+          case 'message':
+            this.messages.push(data.data)
+            break
+          case 'team':
+            this.teams = data.data
+            break
+          case 'start':
+            this.status = 'game'
+            break
+          case 'card':
+            this.cards = data.data
+            this.selectedCards.hotTrend = this.cards.find(
+              (element) => element.type === 'Hot Trend'
+            ).name
+            this.companycards = data.data.filter(
+              (e) => e.type === 'Company Name'
+            )
+            this.industrycards = data.data.filter((e) => e.type === 'Industry')
+            this.targetcards = data.data.filter((e) => e.type === 'Target User')
+            console.log(this.companycards)
+            break
+          case 'select':
+            this.receiveCard(data.data.type, data.data.name)
+            break
+          case 'review':
+            this.review()
+            break
+          case 'startvote':
+            this.voting = data.data
+            this.status = 'vote'
+            console.log(data.data)
+            break
+          default:
+          // code block
         }
       }
     }
@@ -232,15 +232,44 @@ export default {
       this.connection.send(JSON.stringify(res))
     },
     select(type, name) {
+      const res = {
+        type: 'select',
+        data: {
+          type,
+          name,
+        },
+      }
+      this.connection.send(JSON.stringify(res))
+    },
+    receiveCard(type, name) {
       if (type === 'Company Name') this.selectedCards.companyName = name
       else if (type === 'Target User') this.selectedCards.targetUser = name
       else if (type === 'Industry') this.selectedCards.industry = name
     },
+    sendReview() {
+      const res = {
+        type: 'review',
+      }
+      this.connection.send(JSON.stringify(res))
+    },
     review() {
       this.reviewHotTrend = true
     },
-    vote() {
-      this.status = 'vote'
+    startvote() {
+      const res = {
+        type: 'startvote',
+      }
+      this.connection.send(JSON.stringify(res))
+    },
+    vote(team) {
+      const data = {
+        team,
+      }
+      const res = {
+        type: 'vote',
+        data,
+      }
+      this.connection.send(JSON.stringify(res))
     },
   },
 }

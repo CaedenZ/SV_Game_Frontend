@@ -41,7 +41,7 @@
           type="is-warning"
           rounded
           style="width: 300px"
-          :onClick="validateBeforeSubmit"
+          @click="validateBeforeSubmit"
           >Login</b-button
         >
       </form>
@@ -77,7 +77,7 @@ export default {
       const retData = await this.$axios.$post('/login', loginInfo)
       if (!retData.error) {
         // retData.data.address = JSON.parse(retData.data.address)
-        this.$store.commit('login', true)
+        this.$store.dispatch('setLoggedIn', retData)
         console.log(this.$store.state.login)
         Cookie.set('userInfo', retData, {
           expires: 7,
