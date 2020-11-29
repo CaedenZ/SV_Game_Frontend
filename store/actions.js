@@ -4,6 +4,10 @@ export default {
     commit('LOG_IN', info)
   },
 
+  logout({ commit }) {
+    commit('LOG_OUT')
+  },
+
   getUserInfo({ commit }) {
     // api call here
     // this.$axios.$get('/login', loginInfo)

@@ -10,11 +10,13 @@
           <p>Target User : {{ team.targetUser }}</p>
           <p>Industry : {{ team.industry }}</p>
           <p>Hot Trend : {{ team.hotTrend }}</p>
-          <b-button rounded @click="vote(key)">Vote</b-button>
+          <b-button rounded @click="vote(key)" :disabled="disableVote"
+            >Vote</b-button
+          >
         </Team>
       </section>
     </div>
-    <b-button rounded @click="result">Review Result</b-button>
+    <!-- <b-button rounded @click="result">Review Result</b-button> -->
   </b-modal>
 </template>
 
@@ -34,6 +36,9 @@ export default {
     },
     result: {
       type: Function,
+    },
+    disableVote: {
+      type: Boolean,
     },
   },
   methods: {},
