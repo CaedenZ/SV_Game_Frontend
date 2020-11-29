@@ -116,7 +116,7 @@
       <b-button type="is-warning" rounded @click="sendReview">Review</b-button>
       <b-button type="is-danger" rounded @click="startvote">Vote</b-button>
       <b-button rounded @click="result">Review Result</b-button>
-      <b-button rounded @click="downloadItem">download</b-button>
+      <!-- <b-button rounded @click="downloadItem">download</b-button> -->
     </div>
   </section>
 </template>
@@ -258,19 +258,19 @@ export default {
     }
   },
   methods: {
-    downloadItem() {
-      this.$axios
-        .get('/download', { responseType: 'blob' })
-        .then((response) => {
-          const blob = new Blob([response.data], { type: 'application/csv' })
-          const link = document.createElement('a')
-          link.href = URL.createObjectURL(blob)
-          link.download = 'user'
-          link.click()
-          URL.revokeObjectURL(link.href)
-        })
-        .catch(console.error)
-    },
+    // downloadItem() {
+    //   this.$axios
+    //     .get('/download', { responseType: 'blob' })
+    //     .then((response) => {
+    //       const blob = new Blob([response.data], { type: 'application/csv' })
+    //       const link = document.createElement('a')
+    //       link.href = URL.createObjectURL(blob)
+    //       link.download = 'user'
+    //       link.click()
+    //       URL.revokeObjectURL(link.href)
+    //     })
+    //     .catch(console.error)
+    // },
     sendMessage() {
       console.log(this.input)
       const msg = {
