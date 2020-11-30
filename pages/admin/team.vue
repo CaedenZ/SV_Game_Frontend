@@ -80,12 +80,20 @@ export default {
   },
   methods: {
     downloadItem() {
-      const myData = this.userData
+      const myData = this.teamData
 
       const replacer = (key, value) => {
         return value === null ? '' : value
       }
-      const header = ['id', 'email', 'name', 'score', 'type']
+      const header = [
+        'id',
+        'teamScore',
+        'companyName',
+        'targetUser',
+        'industry',
+        'hotTrend',
+        'gID',
+      ]
       const csv = myData.map((row) =>
         header
           .map((fieldName) => JSON.stringify(row[fieldName], replacer))

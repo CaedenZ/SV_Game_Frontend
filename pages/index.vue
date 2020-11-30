@@ -186,7 +186,9 @@ export default {
   created() {
     if (localStorage.getItem('userInfo')) {
       console.log('Starting Websocket Connection')
-      this.connection = new WebSocket('ws://192.168.1.105:4000')
+      this.connection = new WebSocket(
+        'ws://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000'
+      )
       this.connection.onopen = (event) => {
         console.log(event)
         console.log('Successful Connected')
@@ -356,29 +358,39 @@ export default {
       console.log(teams)
     },
     changeTeam(name) {
-      if (this.changeTeamtmp === '') {
-        this.changeTeamtmp = name
-      } else {
-        this.swapmember(this.changeTeamtmp, name)
-        this.changeTeamtmp = ''
+      if (this.$store.state.userInfo.type === 'admin') {
+        if (this.changeTeamtmp === '') {
+          this.changeTeamtmp = name
+        } else {
+          this.swapmember(this.changeTeamtmp, name)
+          this.changeTeamtmp = ''
+        }
       }
     },
     swapmember(nameA, nameB) {
-      console.log('swaping' + nameA + nameB)
-      const keyA = this.getTeam(nameA)
-      const keyB = this.getTeam(nameB)
-      const indexA = this.teams[keyA].members.indexOf(nameA)
-      console.log(indexA)
-      if (indexA > -1) {
-        this.teams[keyA].members.splice(indexA, 1)
+      const data = {
+        nameA,
+        nameB,
       }
-      const indexB = this.teams[keyB].members.indexOf(nameB)
-      console.log(indexB)
-      if (indexB > -1) {
-        this.teams[keyB].members.splice(indexB, 1)
+      const res = {
+        type: 'swap',
+        data,
       }
-      this.teams[keyA].members.push(nameB)
-      this.teams[keyB].members.push(nameA)
+      this.connection.send(JSON.stringify(res))
+      // const keyA = this.getTeam(nameA)
+      // const keyB = this.getTeam(nameB)
+      // const indexA = this.teams[keyA].members.indexOf(nameA)
+      // console.log(indexA)
+      // if (indexA > -1) {
+      //   this.teams[keyA].members.splice(indexA, 1)
+      // }
+      // const indexB = this.teams[keyB].members.indexOf(nameB)
+      // console.log(indexB)
+      // if (indexB > -1) {
+      //   this.teams[keyB].members.splice(indexB, 1)
+      // }
+      // this.teams[keyA].members.push(nameB)
+      // this.teams[keyB].members.push(nameA)
     },
     getTeam(name) {
       const result = Object.keys(this.teams).find((key) =>

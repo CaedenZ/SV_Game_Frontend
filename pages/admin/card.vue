@@ -79,12 +79,12 @@ export default {
   },
   methods: {
     downloadItem() {
-      const myData = this.userData
+      const myData = this.cardData
 
       const replacer = (key, value) => {
         return value === null ? '' : value
       }
-      const header = ['id', 'email', 'name', 'score', 'type']
+      const header = ['id', 'type', 'name']
       const csv = myData.map((row) =>
         header
           .map((fieldName) => JSON.stringify(row[fieldName], replacer))
