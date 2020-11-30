@@ -28,10 +28,11 @@
         </div>
 
         <div v-if="this.$store.state.userInfo.name" class="navbar-end">
-          <a class="navbar-item" href="/profile">{{
+          <a class="navbar-item" @click="goleaderboard">leaderboard</a>
+          <a class="navbar-item" @click="goprofile">{{
             this.$store.state.userInfo.name
           }}</a>
-          <a class="navbar-item" href="/">Logout</a>
+          <a class="navbar-item" @click="logout" href="/">Logout</a>
         </div>
 
         <div v-else class="navbar-end">
@@ -41,7 +42,10 @@
     </nav>
 
     <section class="main-content columns">
-      <aside class="column is-2 section">
+      <aside
+        class="column is-2 section"
+        v-if="this.$store.state.userInfo.type == 'dev'"
+      >
         <p class="menu-label is-hidden-touch">User View</p>
         <ul class="menu-list">
           <li v-for="(item, key) of items" :key="key">
@@ -131,7 +135,23 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$store.state)
+    const info = JSON.parse(localStorage.getItem('userInfo'))
+    if (info) {
+      this.$store.dispatch('setLoggedIn', info)
+    } else {
+      this.$router.push('/login')
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+    },
+    goleaderboard() {
+      this.$router.push('/leaderboard')
+    },
+    goprofile() {
+      this.$router.push('/profile')
+    },
   },
 }
 </script>

@@ -26,9 +26,8 @@
       @cancel="editCancel"
     />
 
-    <button class="button" type="button" @click.prevent="editModal()">
-      ADD
-    </button>
+    <b-button rounded @click.prevent="editModal()"> ADD </b-button>
+    <b-button rounded @click="downloadItem">download</b-button>
     <br />
 
     <card-component title="Teams" class="has-table has-mobile-sort-spaced">
@@ -80,6 +79,38 @@ export default {
     this.allUsers = users.data
   },
   methods: {
+    downloadItem() {
+      const myData = this.teamData
+
+      const replacer = (key, value) => {
+        return value === null ? '' : value
+      }
+      const header = [
+        'id',
+        'teamScore',
+        'companyName',
+        'targetUser',
+        'industry',
+        'hotTrend',
+        'gID',
+      ]
+      const csv = myData.map((row) =>
+        header
+          .map((fieldName) => JSON.stringify(row[fieldName], replacer))
+          .join(',')
+      )
+      csv.unshift(header.join(','))
+      const csvArray = csv.join('\r\n')
+      const a = document.createElement('a')
+      const blob = new Blob([csvArray], { type: 'text/csv' })
+      const url = window.URL.createObjectURL(blob)
+
+      a.href = url
+      a.download = 'team.csv'
+      a.click()
+      window.URL.revokeObjectURL(url)
+      a.remove()
+    },
     editModal() {
       this.isEditActive = true
       this.isAdd = true

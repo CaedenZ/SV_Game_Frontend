@@ -22,7 +22,8 @@
       :per-page="perPage"
       :striped="true"
       :hoverable="true"
-      default-sort="name"
+      :default-sort="defaultsort"
+      :default-sort-direction="sortdirection"
       :data="userData"
       :data-type="dataType"
     >
@@ -163,6 +164,8 @@ export default {
       perPage: 10,
       checkedRows: [],
       tabledataType: this.dataType,
+      defaultsort: 'name',
+      sortdirection: 'asc',
     }
   },
   computed: {
@@ -190,8 +193,10 @@ export default {
   },
   mounted() {
     console.log(this.dataType)
-    console.log(this.userData)
-    console.log(this.tabledataType)
+    if (this.dataType === 'Leaderboard') {
+      this.defaultsort = 'score'
+      this.sortdirection = 'desc'
+    }
   },
   methods: {
     editModal(editObject) {
