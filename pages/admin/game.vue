@@ -61,6 +61,7 @@ export default {
       gameData: [],
       isLoading: true,
       allUsers: {},
+      allTeams: [],
       dataType: 'Game',
       isEditActive: false,
       isAdd: false,
@@ -73,12 +74,34 @@ export default {
   },
   async mounted() {
     const users = await this.$axios.get('/users')
+    const teams = await this.$axios.get('/teams')
+    this.allTeams = teams.data
     this.allUsers = users.data
     // console.log(users.data)
     // console.log(users.data.length)
     const data = await this.$axios.get('/games')
     // console.log(data)
     this.gameData = data.data
+    console.log(this.gameData)
+
+    for (const game in this.gameData) {
+      const gameTeamsID = []
+      const gameTeams = []
+      for (const team in this.allTeams) {
+        if (this.allTeams[team].gID === this.gameData[game].id) {
+          console.log('same')
+          gameTeamsID.push(this.allTeams[team].id)
+          gameTeams.push(this.allTeams[team])
+        }
+      }
+      gameTeams.sort(
+        (a, b) => parseFloat(b.teamScore) - parseFloat(a.teamScore)
+      )
+
+      console.log(gameTeams)
+      this.gameData[game].teams = gameTeamsID
+      this.gameData[game].winner = gameTeams[0]
+    }
     this.isLoading = false
   },
   methods: {
