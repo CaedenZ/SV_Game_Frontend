@@ -171,28 +171,24 @@ export default {
   computed: {
     trashObjectID() {
       if (this.trashObject) {
-        console.log(this.trashObject.id)
         return this.trashObject.id
       }
       return null
     },
     editObjectID() {
       if (this.editObject) {
-        console.log(this.editObject.id)
         return this.editObject.id
       }
       return null
     },
     selectTeam() {
       if (this.teams) {
-        console.log(this.teams)
         return this.teams
       }
       return null
     },
   },
   mounted() {
-    console.log(this.dataType)
     if (this.dataType === 'Leaderboard') {
       this.defaultsort = 'score'
       this.sortdirection = 'desc'
@@ -202,7 +198,6 @@ export default {
     editModal(editObject) {
       this.editObject = editObject
       this.isEditActive = true
-      console.log(editObject)
     },
     editConfirm() {
       this.isEditActive = false

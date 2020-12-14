@@ -1,11 +1,11 @@
 <template>
   <section class="section">
     <select-team
-      :isActive="status === 'vote'"
+      :is-active="status === 'vote'"
       :teams="voting"
       :vote="vote"
       :result="result"
-      :disableVote="disableVote"
+      :disable-vote="disableVote"
     />
     <result :isActive="status === 'result'" :teams="finalResult" />
     <div v-if="status === 'waiting'" class="columns">
@@ -102,9 +102,9 @@
       :companycards="companycards"
       :targetcards="targetcards"
       :industrycards="industrycards"
-      :selectedCards="selectedCards"
+      :selected-cards="selectedCards"
       :select="select"
-      :reviewHotTrend="reviewHotTrend"
+      :review-hot-trend="reviewHotTrend"
     />
     <selection
       v-else-if="
@@ -181,19 +181,14 @@ export default {
       message: 'Welcome back',
       queue: false,
     })
-    console.log(this.messages)
   },
   created() {
     if (localStorage.getItem('userInfo')) {
-      console.log('Starting Websocket Connection')
       this.connection = new WebSocket(
         'ws://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000'
       )
       this.connection.onopen = (event) => {
-        console.log(event)
-        console.log('Successful Connected')
         this.connection.send(this.$store.state.userInfo.name)
-
         if (this.$store.state.userInfo.type === 'user') {
           const res = {
             type: 'user',
@@ -211,7 +206,6 @@ export default {
 
       this.connection.onmessage = (event) => {
         const data = JSON.parse(event.data)
-        console.log(data)
         switch (data.type) {
           case 'message':
             this.messages.push(data.data)
@@ -232,7 +226,6 @@ export default {
             )
             this.industrycards = data.data.filter((e) => e.type === 'Industry')
             this.targetcards = data.data.filter((e) => e.type === 'Target User')
-            console.log(this.companycards)
             break
           case 'select':
             this.receiveCard(data.data.type, data.data.name)
@@ -243,7 +236,6 @@ export default {
           case 'startvote':
             this.voting = data.data
             this.status = 'vote'
-            console.log(data.data)
             break
           case 'result':
             this.finalResult = data.data
@@ -251,7 +243,6 @@ export default {
             break
           case 'teamselecting':
             this.teamSelecting = data.data
-            console.log(this.teamSelecting)
             break
           default:
           // code block
@@ -260,21 +251,7 @@ export default {
     }
   },
   methods: {
-    // downloadItem() {
-    //   this.$axios
-    //     .get('/download', { responseType: 'blob' })
-    //     .then((response) => {
-    //       const blob = new Blob([response.data], { type: 'application/csv' })
-    //       const link = document.createElement('a')
-    //       link.href = URL.createObjectURL(blob)
-    //       link.download = 'user'
-    //       link.click()
-    //       URL.revokeObjectURL(link.href)
-    //     })
-    //     .catch(console.error)
-    // },
     sendMessage() {
-      console.log(this.input)
       const msg = {
         user: this.$store.state.userInfo.name,
         text: this.input,
@@ -355,11 +332,10 @@ export default {
 
     selectModal(teams) {
       this.isSelectActive = true
-      console.log(teams)
     },
     changeTeam(name) {
       if (this.$store.state.userInfo.type === 'admin') {
-        if (this.changeTeamtmp === '') {
+        if (this.changeTeamtmp === '' || this.changeTeamtmp === name) {
           this.changeTeamtmp = name
         } else {
           this.swapmember(this.changeTeamtmp, name)
@@ -377,40 +353,12 @@ export default {
         data,
       }
       this.connection.send(JSON.stringify(res))
-      // const keyA = this.getTeam(nameA)
-      // const keyB = this.getTeam(nameB)
-      // const indexA = this.teams[keyA].members.indexOf(nameA)
-      // console.log(indexA)
-      // if (indexA > -1) {
-      //   this.teams[keyA].members.splice(indexA, 1)
-      // }
-      // const indexB = this.teams[keyB].members.indexOf(nameB)
-      // console.log(indexB)
-      // if (indexB > -1) {
-      //   this.teams[keyB].members.splice(indexB, 1)
-      // }
-      // this.teams[keyA].members.push(nameB)
-      // this.teams[keyB].members.push(nameA)
     },
     getTeam(name) {
       const result = Object.keys(this.teams).find((key) =>
         this.teams[key].members.includes(name)
       )
       return result
-    },
-    removeA(arr) {
-      const a = arguments
-
-      let what
-      let L = a.length
-      let ax
-      while (L > 1 && arr.length) {
-        what = a[--L]
-        while ((ax = arr.indexOf(what)) !== -1) {
-          arr.splice(ax, 1)
-        }
-      }
-      return arr
     },
   },
 }
