@@ -46,7 +46,7 @@ import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardWidget from '@/components/CardWidget'
 import CardComponent from '@/components/CardComponent'
-import Table from '@/components/Table'
+import Table from '@/components/GameTable'
 export default {
   name: 'Admin',
   components: {

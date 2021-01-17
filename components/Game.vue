@@ -1,6 +1,9 @@
 <template>
   <section class="section">
     <div class="container">
+      <div v-if="teamName" class="content">
+        <h2 class="title">{{ teamName }}</h2>
+      </div>
       <div class="columns is-center">
         <Card title="Company Name" :content="selectedCards.companyName"> </Card>
         <Card title="Target User" :content="selectedCards.targetUser"> </Card>
@@ -49,6 +52,13 @@
           >
           </CardSelect>
         </div>
+        <div v-else-if="teamName === ''" class="columns is-center">
+          <b-field>
+            <b-input placeholder="CompanyName" size="is-large" v-model="name">
+            </b-input>
+            <b-button rounded @click="setTeamName(name)">Set</b-button>
+          </b-field>
+        </div>
       </div>
     </div>
   </section>
@@ -77,10 +87,23 @@ export default {
       type: Function,
       required: false,
     },
+    setTeamName: {
+      type: Function,
+      required: false,
+    },
     reviewHotTrend: {
       type: Boolean,
       required: true,
     },
+    teamName: {
+      type: String,
+      required: false,
+    },
+  },
+  data() {
+    return {
+      name: '',
+    }
   },
 }
 </script>

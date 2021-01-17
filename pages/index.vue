@@ -105,6 +105,8 @@
       :selectedCards="selectedCards"
       :select="select"
       :reviewHotTrend="reviewHotTrend"
+      :teamName="teamName"
+      :setTeamName="setTeamName"
     />
     <selection
       v-else-if="
@@ -174,6 +176,7 @@ export default {
       finalResult: {},
       changeTeamtmp: '',
       teamSelecting: {},
+      teamName: '',
     }
   },
   mounted() {
@@ -186,9 +189,7 @@ export default {
   created() {
     if (localStorage.getItem('userInfo')) {
       console.log('Starting Websocket Connection')
-      this.connection = new WebSocket(
-        'ws://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000'
-      )
+      this.connection = new WebSocket('ws://localhost:4000')
       this.connection.onopen = (event) => {
         console.log(event)
         console.log('Successful Connected')
@@ -236,6 +237,9 @@ export default {
             break
           case 'select':
             this.receiveCard(data.data.type, data.data.name)
+            break
+          case 'teamname':
+            this.receiveName(data.data)
             break
           case 'review':
             this.review()
@@ -320,6 +324,9 @@ export default {
       else if (type === 'Target User') this.selectedCards.targetUser = name
       else if (type === 'Industry') this.selectedCards.industry = name
     },
+    receiveName(name) {
+      this.teamName = name
+    },
     sendReview() {
       const res = {
         type: 'review',
@@ -352,7 +359,13 @@ export default {
       }
       this.connection.send(JSON.stringify(res))
     },
-
+    setTeamName(data) {
+      const res = {
+        type: 'teamname',
+        data,
+      }
+      this.connection.send(JSON.stringify(res))
+    },
     selectModal(teams) {
       this.isSelectActive = true
       console.log(teams)
