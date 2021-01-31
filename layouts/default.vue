@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav
-      class="navbar header has-shadow is-primary"
+      class="navbar header has-shadow is-black"
       role="navigation"
       aria-label="main navigation"
     >
@@ -29,6 +29,7 @@
 
         <div v-if="this.$store.state.userInfo.name" class="navbar-end">
           <a class="navbar-item" @click="goleaderboard">leaderboard</a>
+          <a class="navbar-item">how it work</a>
           <a class="navbar-item" @click="goprofile">{{
             this.$store.state.userInfo.name
           }}</a>
@@ -62,6 +63,27 @@
     </section>
   </div>
 </template>
+
+<style lang="scss">
+html {
+  background: linear-gradient(90deg, #000000, #230050);
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #ffffff;
+  font-weight: 600;
+  z-index: 1;
+}
+.title {
+  color: #ffffff;
+}
+.navbar-item {
+  color: #ffffff;
+}
+body {
+  color: #ffffff;
+}
+</style>
 
 <script>
 export default {
