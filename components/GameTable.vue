@@ -7,6 +7,11 @@
       @confirm="trashConfirm"
       @cancel="trashCancel"
     />
+    <team-in-game
+      :is-active="isTeamActive"
+      :teamData="teamData"
+      @cancel="Cancel"
+    />
     <edit-box
       :is-active="isEditActive"
       :edit-object-id="editObjectID"
@@ -29,6 +34,7 @@
       :default-sort-direction="sortdirection"
       :data="userData"
       :data-type="dataType"
+      v-on:click="showTeam"
     >
       <b-table-column
         v-slot="props"
@@ -53,55 +59,7 @@
         custom-key="actions"
         cell-class="is-actions-cell"
       >
-        <div v-if="dataType === 'User'" class="buttons is-right">
-          <button
-            class="button is-small is-danger"
-            type="button"
-            @click.prevent="editModal(props.row)"
-          >
-            <b-icon icon="account-edit" size="is-small" />
-          </button>
-          <button
-            class="button is-small is-danger"
-            type="button"
-            @click.prevent="trashModal(props.row)"
-          >
-            <b-icon icon="trash-can" size="is-small" />
-          </button>
-        </div>
-        <div v-if="dataType === 'Team'" class="buttons is-right">
-          <button
-            class="button is-small is-danger"
-            type="button"
-            @click.prevent="editModal(props.row)"
-          >
-            <b-icon icon="account-edit" size="is-small" />
-          </button>
-          <button
-            class="button is-small is-danger"
-            type="button"
-            @click.prevent="trashModal(props.row)"
-          >
-            <b-icon icon="trash-can" size="is-small" />
-          </button>
-        </div>
-        <div v-if="dataType === 'Game'" class="buttons is-right">
-          <button
-            class="button is-small is-danger"
-            type="button"
-            @click.prevent="trashModal(props.row)"
-          >
-            <b-icon icon="trash-can" size="is-small" />
-          </button>
-        </div>
-        <div v-if="dataType === 'Card'" class="buttons is-right">
-          <button
-            class="button is-small is-danger"
-            type="button"
-            @click.prevent="editModal(props.row)"
-          >
-            <b-icon icon="account-edit" size="is-small" />
-          </button>
+        <div class="buttons is-right">
           <button
             class="button is-small is-danger"
             type="button"
@@ -113,10 +71,7 @@
       </b-table-column>
 
       <section slot="empty" class="section">
-        <div
-          class="content has-text-grey has-text-centered"
-          style="background: #292b2e"
-        >
+        <div class="content has-text-grey has-text-centered">
           <template v-if="isLoading">
             <p>
               <b-icon icon="dots-horizontal" size="is-large" />
@@ -138,10 +93,11 @@
 <script>
 import ModalBox from '@/components/ModalBox'
 import EditBox from '@/components/EditBox'
+import TeamInGame from './TeamInGame.vue'
 
 export default {
   name: 'Table',
-  components: { ModalBox, EditBox },
+  components: { ModalBox, EditBox, TeamInGame },
   props: {
     userData: {
       type: Array,
@@ -163,48 +119,62 @@ export default {
   data() {
     return {
       isModalActive: false,
+      isTeamActive: false,
       isEditActive: false,
       editObject: null,
       trashObject: null,
+      teamID: null,
       paginated: false,
       perPage: 10,
       checkedRows: [],
       tabledataType: this.dataType,
       defaultsort: 'name',
       sortdirection: 'asc',
+      teamData: null,
       dark: true,
     }
   },
   computed: {
     trashObjectID() {
       if (this.trashObject) {
+        console.log(this.trashObject.id)
         return this.trashObject.id
       }
       return null
     },
     editObjectID() {
       if (this.editObject) {
+        console.log(this.editObject.id)
         return this.editObject.id
       }
       return null
     },
     selectTeam() {
       if (this.teams) {
+        console.log(this.teams)
         return this.teams
       }
       return null
     },
   },
   mounted() {
+    console.log(this.dataType)
     if (this.dataType === 'Leaderboard') {
       this.defaultsort = 'score'
       this.sortdirection = 'desc'
     }
   },
   methods: {
+    async showTeam(row) {
+      const data = await this.$axios.get('/teams/' + row.id)
+      this.teamData = data.data
+      console.log(this.teamData)
+      this.isTeamActive = true
+    },
     editModal(editObject) {
       this.editObject = editObject
       this.isEditActive = true
+      console.log(editObject)
     },
     editConfirm() {
       this.isEditActive = false
@@ -229,6 +199,9 @@ export default {
     },
     trashCancel() {
       this.isModalActive = false
+    },
+    Cancel() {
+      this.isTeamActive = false
     },
   },
 }

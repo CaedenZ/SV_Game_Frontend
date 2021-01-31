@@ -26,11 +26,19 @@
       @cancel="editCancel"
     />
 
-    <b-button rounded @click.prevent="editModal()"> ADD </b-button>
-    <b-button rounded @click="downloadItem">download</b-button>
+    <b-button type="is-success" rounded @click.prevent="editModal()">
+      ADD
+    </b-button>
+    <b-button type="is-info" rounded @click="downloadItem"
+      >Download EXCEL</b-button
+    >
     <br />
 
-    <card-component title="Games" class="has-table has-mobile-sort-spaced">
+    <card-component
+      title="Games"
+      class="has-table has-mobile-sort-spaced has-text-white"
+      style="background: #292b2e; margin-top: 20px"
+    >
       <Table
         :user-data="gameData"
         :is-loading="isLoading"
@@ -46,7 +54,7 @@ import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardWidget from '@/components/CardWidget'
 import CardComponent from '@/components/CardComponent'
-import Table from '@/components/Table'
+import Table from '@/components/GameTable'
 export default {
   name: 'Admin',
   components: {

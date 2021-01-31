@@ -18,18 +18,28 @@
       @confirm="editConfirm"
       @cancel="editCancel"
     />
+    <div>
+      <b-button type="is-success" rounded @click.prevent="editModal()">
+        ADD
+      </b-button>
+      <b-button type="is-info" rounded @click="downloadItem"
+        >Download EXCEL</b-button
+      >
+    </div>
 
-    <b-button rounded @click.prevent="editModal()"> ADD </b-button>
-    <b-button rounded @click="downloadItem">download</b-button>
-    <br />
-
-    <card-component title="Users" class="has-table has-mobile-sort-spaced">
-      <Table
-        :user-data="userData"
-        :is-loading="isLoading"
-        :data-type="dataType"
-      />
-    </card-component>
+    <div>
+      <card-component
+        title="Users"
+        class="has-table has-mobile-sort-spaced"
+        style="background: #292b2e; margin-top: 20px"
+      >
+        <Table
+          :user-data="userData"
+          :is-loading="isLoading"
+          :data-type="dataType"
+        />
+      </card-component>
+    </div>
   </section>
 </template>
 

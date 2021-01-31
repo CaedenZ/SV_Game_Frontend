@@ -53,48 +53,7 @@
         custom-key="actions"
         cell-class="is-actions-cell"
       >
-        <div v-if="dataType === 'User'" class="buttons is-right">
-          <button
-            class="button is-small is-danger"
-            type="button"
-            @click.prevent="editModal(props.row)"
-          >
-            <b-icon icon="account-edit" size="is-small" />
-          </button>
-          <button
-            class="button is-small is-danger"
-            type="button"
-            @click.prevent="trashModal(props.row)"
-          >
-            <b-icon icon="trash-can" size="is-small" />
-          </button>
-        </div>
-        <div v-if="dataType === 'Team'" class="buttons is-right">
-          <button
-            class="button is-small is-danger"
-            type="button"
-            @click.prevent="editModal(props.row)"
-          >
-            <b-icon icon="account-edit" size="is-small" />
-          </button>
-          <button
-            class="button is-small is-danger"
-            type="button"
-            @click.prevent="trashModal(props.row)"
-          >
-            <b-icon icon="trash-can" size="is-small" />
-          </button>
-        </div>
-        <div v-if="dataType === 'Game'" class="buttons is-right">
-          <button
-            class="button is-small is-danger"
-            type="button"
-            @click.prevent="trashModal(props.row)"
-          >
-            <b-icon icon="trash-can" size="is-small" />
-          </button>
-        </div>
-        <div v-if="dataType === 'Card'" class="buttons is-right">
+        <div class="buttons is-right">
           <button
             class="button is-small is-danger"
             type="button"
@@ -145,7 +104,6 @@ export default {
   props: {
     userData: {
       type: Array,
-      default: null,
     },
     checkable: {
       type: Boolean,
@@ -172,30 +130,33 @@ export default {
       tabledataType: this.dataType,
       defaultsort: 'name',
       sortdirection: 'asc',
-      dark: true,
     }
   },
   computed: {
     trashObjectID() {
       if (this.trashObject) {
+        console.log(this.trashObject.id)
         return this.trashObject.id
       }
       return null
     },
     editObjectID() {
       if (this.editObject) {
+        console.log(this.editObject.id)
         return this.editObject.id
       }
       return null
     },
     selectTeam() {
       if (this.teams) {
+        console.log(this.teams)
         return this.teams
       }
       return null
     },
   },
   mounted() {
+    console.log(this.dataType)
     if (this.dataType === 'Leaderboard') {
       this.defaultsort = 'score'
       this.sortdirection = 'desc'
@@ -205,6 +166,7 @@ export default {
     editModal(editObject) {
       this.editObject = editObject
       this.isEditActive = true
+      console.log(editObject)
     },
     editConfirm() {
       this.isEditActive = false

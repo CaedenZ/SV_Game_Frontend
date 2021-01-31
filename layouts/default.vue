@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav
-      class="navbar header has-shadow is-primary"
+      class="navbar header has-shadow is-black"
       role="navigation"
       aria-label="main navigation"
     >
@@ -29,6 +29,7 @@
 
         <div v-if="this.$store.state.userInfo.name" class="navbar-end">
           <a class="navbar-item" @click="goleaderboard">leaderboard</a>
+          <a class="navbar-item">how it work</a>
           <a class="navbar-item" @click="goprofile">{{
             this.$store.state.userInfo.name
           }}</a>
@@ -62,6 +63,58 @@
     </section>
   </div>
 </template>
+
+<style lang="scss">
+html {
+  background: linear-gradient(90deg, #000000, #292b2e);
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #ffffff;
+  font-weight: 600;
+  z-index: 1;
+}
+.table {
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  border: 1px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.table thead tr {
+  background-color: #0a0a0a;
+  color: #ffffff;
+  text-align: left;
+}
+.table th {
+  color: #ffffff;
+  text-align: left;
+}
+.table td {
+  padding: 12px 15px;
+}
+.table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.table tbody tr:nth-of-type(even) {
+  background-color: #141414;
+}
+
+.table tbody tr:last-of-type {
+  border-bottom: 2px solid #1d1f1e;
+}
+.title {
+  color: #ffffff;
+}
+.navbar-item {
+  color: #ffffff;
+}
+body {
+  color: #ffffff;
+}
+</style>
 
 <script>
 export default {

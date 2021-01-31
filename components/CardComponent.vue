@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <header v-if="title" class="card-header">
-      <p class="card-header-title">
+      <p class="card-header-title has-text-white" style="background: #292b2e">
         <b-icon v-if="icon" :icon="icon" custom-size="default" />
         {{ title }}
       </p>
@@ -15,7 +15,7 @@
         <b-icon :icon="headerIcon" custom-size="default" />
       </a>
     </header>
-    <div class="card-content">
+    <div class="card-content" style="background: #292b2e">
       <slot />
     </div>
   </div>

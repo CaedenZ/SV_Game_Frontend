@@ -26,11 +26,19 @@
       @cancel="editCancel"
     />
 
-    <b-button rounded @click.prevent="editModal()"> ADD </b-button>
-    <b-button rounded @click="downloadItem">download</b-button>
+    <b-button type="is-success" rounded @click.prevent="editModal()">
+      ADD
+    </b-button>
+    <b-button type="is-info" rounded @click="downloadItem"
+      >Download EXCEL</b-button
+    >
     <br />
 
-    <card-component title="Teams" class="has-table has-mobile-sort-spaced">
+    <card-component
+      title="Teams"
+      class="has-table has-mobile-sort-spaced"
+      style="background: #292b2e; margin-top: 20px"
+    >
       <Table
         :user-data="teamData"
         :is-loading="isLoading"
