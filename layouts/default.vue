@@ -28,6 +28,7 @@
         </div>
 
         <div v-if="this.$store.state.userInfo.name" class="navbar-end">
+          <a class="navbar-item" @click="gogame">Start</a>
           <a class="navbar-item" @click="goleaderboard">leaderboard</a>
           <a class="navbar-item">how it work</a>
           <a class="navbar-item" @click="goprofile">{{
@@ -204,6 +205,9 @@ export default {
     },
     goprofile() {
       this.$router.push('/profile')
+    },
+    gogame() {
+      this.$router.push('/home')
     },
   },
 }

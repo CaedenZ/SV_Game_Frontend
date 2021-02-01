@@ -35,11 +35,11 @@
         </p>
       </div>
 
-      <div class="container">
+      <!-- <div class="container">
         <hero-bar :has-right-visible="false">
           PARTICIPATE EARLY. PLAY MORE, EARN MORE!
         </hero-bar>
-      </div>
+      </div> -->
 
       <div class="container">
         <h2 class="font_2" style="text-align: center; font-size: 40px">
@@ -139,7 +139,6 @@
           <p>The Team with the highest vote wins the game.</p>
         </div>
       </div>
-      <div class="columns nan"></div>
       <img src="../assets/bg2.png" />
     </div>
   </section>
