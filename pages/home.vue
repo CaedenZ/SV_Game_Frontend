@@ -176,7 +176,7 @@ export default {
     if (localStorage.getItem('userInfo')) {
       console.log('Starting Websocket Connection')
       this.connection = new WebSocket(
-        'ws://ec2-3-129-14-157.us-east-2.compute.amazonaws.com:4000'
+        'ws://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000'
       )
       this.connection.onopen = (event) => {
         console.log(event)
