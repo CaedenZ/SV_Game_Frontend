@@ -1,5 +1,6 @@
 <template>
   <section class="section">
+    <base-timer v-if="selectedCards.industry === ''" />
     <div class="container">
       <div v-if="teamName" class="content">
         <h2 class="title">{{ teamName }}</h2>
@@ -65,7 +66,9 @@
 </template>
 
 <script>
+import BaseTimer from './BaseTimer.vue'
 export default {
+  components: { BaseTimer },
   props: {
     companycards: {
       type: Array,
