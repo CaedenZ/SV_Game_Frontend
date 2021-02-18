@@ -1,7 +1,8 @@
 <template>
   <section>
     <div class="is-half">
-      <b-field label="Email" style="width: 300px">
+      <b-field style="width: 300px; color: white"
+        >EMAIL
         <b-input
           v-model="email"
           v-validate="'required|email'"
@@ -11,15 +12,18 @@
         </b-input>
       </b-field>
 
-      <b-field label="Username" style="width: 300px">
+      <b-field style="width: 300px; color: white"
+        >USERNAME
         <b-input v-model="username" maxlength="30"></b-input>
       </b-field>
 
-      <b-field label="Password" style="width: 300px">
+      <b-field style="width: 300px; color: white"
+        >PASSWORD
         <b-input v-model="password" type="password" password-reveal> </b-input>
       </b-field>
 
-      <b-field label="Confirm Password" style="width: 300px">
+      <b-field style="width: 300px; color: white"
+        >CONFIRM PASSWORD
         <b-input v-model="confirmPassword" type="password" password-reveal>
         </b-input>
       </b-field>
@@ -62,15 +66,25 @@ export default {
           type: 'error',
         })
       } else {
-        const retData = await this.$axios.$post('/register', regInfo)
-        if (!retData.error) {
+        try {
+          const retData = await this.$axios.$post('/register', regInfo)
           console.log('aa')
+          this.$toast.open({
+            message: 'Welcome!',
+            type: 'success',
+          })
           this.$store.dispatch('setLoggedIn', retData)
           Cookie.set('userInfo', retData, {
             expires: 7,
           })
           this.$router.push('/')
+        } catch (e) {
+          this.$toast.open({
+            message: 'This email has already been registered!',
+            type: 'error',
+          })
         }
+        // note: await need to do try catch, if not will be stuck in infinite loop
       }
     },
   },

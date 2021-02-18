@@ -5,7 +5,11 @@
         <p class="modal-card-title">Select Your Favourite Team</p>
       </header>
       <section class="modal-card-body">
-        <Team v-for="(team, key) in teams" :key="key" :title="'Group ' + key">
+        <Team
+          v-for="(team, key, index) in teams"
+          :key="key"
+          :title="'Group ' + (index + 1)"
+        >
           <p>Company Name : {{ team.companyName }}</p>
           <p>Target User : {{ team.targetUser }}</p>
           <p>Industry : {{ team.industry }}</p>
@@ -40,6 +44,16 @@ export default {
     disableVote: {
       type: Boolean,
     },
+  },
+  beforeRouteLeave(to, from, next) {
+    const answer = window.confirm(
+      'Do you really want to leave? You cannot return to the game after this!'
+    )
+    if (answer) {
+      next()
+    } else {
+      next(false)
+    }
   },
   methods: {},
 }

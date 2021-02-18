@@ -50,11 +50,14 @@
 
 <script>
 // @ is an alias to /src
+import moment from 'moment-timezone'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardWidget from '@/components/CardWidget'
 import CardComponent from '@/components/CardComponent'
 import Table from '@/components/GameTable'
+moment.tz.setDefault('Asia/Singapore')
+
 export default {
   name: 'Admin',
   components: {

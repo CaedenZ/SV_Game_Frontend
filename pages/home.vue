@@ -36,7 +36,7 @@
         <Team
           v-for="(team, key, index) in teams"
           :key="key"
-          :title="'Group ' + index"
+          :title="'Group ' + (index + 1)"
         >
           <div
             class="columns"
@@ -149,10 +149,12 @@
 <style lang="scss"></style>
 
 <script>
+import moment from 'moment-timezone'
 import Team from '~/components/Team'
 import Game from '~/components/Game'
 import SelectTeam from '~/components/SelectTeam'
 import Selection from '~/components/Selection'
+moment.tz.setDefault('Asia/Singapore')
 export default {
   name: 'HomePage',
 
@@ -187,6 +189,16 @@ export default {
       teamSelecting: {},
       teamName: '',
       number: [],
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    const answer = window.confirm(
+      'Do you really want to leave? You cannot return to the game after this!'
+    )
+    if (answer) {
+      next()
+    } else {
+      next(false)
     }
   },
   mounted() {

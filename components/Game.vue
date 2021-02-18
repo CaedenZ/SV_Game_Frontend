@@ -105,5 +105,15 @@ export default {
       name: '',
     }
   },
+  beforeRouteLeave(to, from, next) {
+    const answer = window.confirm(
+      'Do you really want to leave? You cannot return to the game after this!'
+    )
+    if (answer) {
+      next()
+    } else {
+      next(false)
+    }
+  },
 }
 </script>
