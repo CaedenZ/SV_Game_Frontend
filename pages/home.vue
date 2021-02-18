@@ -9,6 +9,29 @@
     />
     <result :isActive="status === 'result'" :teams="finalResult" />
     <div v-if="status === 'waiting'" class="columns">
+      <div class="column is-2">
+        <b-collapse class="card" animation="slide" aria-id="contentIdForA11y3">
+          <template #trigger="props">
+            <div
+              class="card-header"
+              role="button"
+              aria-controls="contentIdForA11y3"
+            >
+              <p class="card-header-title">
+                Online {{ String(number.length) }}
+              </p>
+              <a class="card-header-icon">
+                <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"> </b-icon>
+              </a>
+            </div>
+          </template>
+          <div class="card-content">
+            <div class="content">
+              <li v-for="num in number" :key="num">{{ num }}</li>
+            </div>
+          </div>
+        </b-collapse>
+      </div>
       <div class="column is-8">
         <Team
           v-for="(team, key, index) in teams"
@@ -163,6 +186,7 @@ export default {
       changeTeamtmp: '',
       teamSelecting: {},
       teamName: '',
+      number: [],
     }
   },
   mounted() {
@@ -204,6 +228,9 @@ export default {
         switch (data.type) {
           case 'message':
             this.messages.push(data.data)
+            break
+          case 'number':
+            this.number = data.data
             break
           case 'team':
             this.teams = data.data
