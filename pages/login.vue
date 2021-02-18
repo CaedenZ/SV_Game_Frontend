@@ -83,6 +83,10 @@ export default {
           expires: 7,
         })
         this.$router.push('/')
+        this.$toast.open({
+          message: 'Welcome!',
+          type: 'success',
+        })
       } else {
         this.$toast.open({
           message: 'You have entered a wrong password or email!',

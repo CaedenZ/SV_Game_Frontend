@@ -1,6 +1,10 @@
 <template>
   <div>
-    <Team v-for="(team, key) in teams" :key="key" :title="'Group ' + key">
+    <Team
+      v-for="(team, key, index) in teams"
+      :key="key"
+      :title="'Group ' + (index + 1)"
+    >
       <p>Company Name : {{ team.companyName }}</p>
       <p>Target User : {{ team.targetUser }}</p>
       <p>Industry : {{ team.industry }}</p>
@@ -18,8 +22,15 @@ export default {
       type: Object,
     },
   },
-  mounted() {
-    console.log(this.teams)
+  beforeRouteLeave(to, from, next) {
+    const answer = window.confirm(
+      'Do you really want to leave? You cannot return to the game after this!'
+    )
+    if (answer) {
+      next()
+    } else {
+      next(false)
+    }
   },
 }
 </script>

@@ -2,12 +2,12 @@
   <div class="column is-3">
     <div class="card" :class="title">
       <header class="card-header">
-        <p class="card-header-title has-text-grey" style="background: #292b2e">
+        <p class="card-header-title has-text-white" style="background: orange">
           {{ title }}
         </p>
       </header>
       <div class="card-content">
-        <div class="content has-text-centered" style="background: #292b2e">
+        <div class="content has-text-centered">
           {{ content }}
         </div>
       </div>

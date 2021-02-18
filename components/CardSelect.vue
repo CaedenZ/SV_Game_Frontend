@@ -1,16 +1,26 @@
 <template>
   <div class="column is-3">
     <div class="card" :class="title">
-      <header class="card-header">
+      <header class="card-header" v-if="title === 'Target User'">
         <p
           class="card-header-title has-text-white"
-          style="
-            background: #ffd32a;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            width: 200px;
-            height: 40px;
-          "
+          style="background: #ffd32a; width: 200px; height: 40px"
+        >
+          {{ title }}
+        </p>
+      </header>
+      <header class="card-header" v-if="title === 'Company Name'">
+        <p
+          class="card-header-title has-text-white"
+          style="background: palevioletred; width: 200px; height: 40px"
+        >
+          {{ title }}
+        </p>
+      </header>
+      <header class="card-header" v-if="title === 'Industry'">
+        <p
+          class="card-header-title has-text-white"
+          style="background: lightblue; width: 200px; height: 40px"
         >
           {{ title }}
         </p>

@@ -4,13 +4,7 @@
       <header class="card-header">
         <p
           class="card-header-title has-text-white"
-          style="
-            background: #6b63d8;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            width: 200px;
-            height: 40px;
-          "
+          style="background: #6b63d8; width: 200px; height: 40px"
         >
           {{ title }}
         </p>
