@@ -1,6 +1,5 @@
 <template>
   <section class="section">
-    <base-timer v-if="selectedCards.industry === ''" />
     <div class="container">
       <div v-if="teamName" class="content">
         <h2 class="title">{{ teamName }}</h2>
@@ -61,6 +60,8 @@
           </b-field>
         </div>
       </div>
+
+      <base-timer :bus="bus" v-if="selectedCards.industry === ''" />
     </div>
   </section>
 </template>
@@ -101,6 +102,9 @@ export default {
     teamName: {
       type: String,
       required: false,
+    },
+    bus: {
+      required: true,
     },
   },
   data() {
