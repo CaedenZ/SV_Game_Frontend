@@ -131,6 +131,7 @@
       :teamName="teamName"
       :setTeamName="setTeamName"
       :bus="bus"
+      :timeUp="timeUp"
     />
     <selection
       v-else-if="
@@ -351,22 +352,22 @@ export default {
       this.bus.$emit('onReset')
     },
     timeUp() {
-      if (selectedCards.companyName == '') {
+      if (this.selectedCards.companyName === '') {
         const res = {
           type: 'select',
           data: {
             type: 'Company Name',
-            name: companycards[0],
+            name: this.companycards[0].name,
           },
         }
         this.connection.send(JSON.stringify(res))
         this.bus.$emit('onReset')
-      } else if (selectedCards.targetUser == '') {
+      } else if (this.selectedCards.targetUser === '') {
         const res = {
           type: 'select',
           data: {
             type: 'Target User',
-            name: targetcards[0],
+            name: this.targetcards[0].name,
           },
         }
         this.connection.send(JSON.stringify(res))
@@ -376,7 +377,7 @@ export default {
           type: 'select',
           data: {
             type: 'Industry',
-            name: industrycards[0],
+            name: this.industrycards[0].name,
           },
         }
         this.connection.send(JSON.stringify(res))

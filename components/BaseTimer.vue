@@ -51,7 +51,7 @@ const COLOR_CODES = {
 const TIME_LIMIT = 30
 
 export default {
-  props: ['bus'],
+  props: ['bus', 'timeUp'],
   data() {
     return {
       timePassed: 0,
@@ -113,7 +113,7 @@ export default {
 
   methods: {
     onTimesUp() {
-      this.onReset()
+      this.timeUp()
     },
 
     onReset() {

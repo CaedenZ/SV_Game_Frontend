@@ -61,7 +61,11 @@
         </div>
       </div>
 
-      <base-timer :bus="bus" v-if="selectedCards.industry === ''" />
+      <base-timer
+        :bus="bus"
+        :timeUp="timeUp"
+        v-if="selectedCards.industry === ''"
+      />
     </div>
   </section>
 </template>
@@ -92,6 +96,10 @@ export default {
       required: false,
     },
     setTeamName: {
+      type: Function,
+      required: false,
+    },
+    timeUp: {
       type: Function,
       required: false,
     },
