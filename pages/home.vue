@@ -350,6 +350,39 @@ export default {
       this.connection.send(JSON.stringify(res))
       this.bus.$emit('onReset')
     },
+    timeUp() {
+      if (selectedCards.companyName == '') {
+        const res = {
+          type: 'select',
+          data: {
+            type: 'Company Name',
+            name: companycards[0],
+          },
+        }
+        this.connection.send(JSON.stringify(res))
+        this.bus.$emit('onReset')
+      } else if (selectedCards.targetUser == '') {
+        const res = {
+          type: 'select',
+          data: {
+            type: 'Target User',
+            name: targetcards[0],
+          },
+        }
+        this.connection.send(JSON.stringify(res))
+        this.bus.$emit('onReset')
+      } else {
+        const res = {
+          type: 'select',
+          data: {
+            type: 'Industry',
+            name: industrycards[0],
+          },
+        }
+        this.connection.send(JSON.stringify(res))
+        this.bus.$emit('onReset')
+      }
+    },
     receiveCard(type, name) {
       if (type === 'Company Name') this.selectedCards.companyName = name
       else if (type === 'Target User') this.selectedCards.targetUser = name
