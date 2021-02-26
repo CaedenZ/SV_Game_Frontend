@@ -60,12 +60,20 @@
           </b-field>
         </div>
       </div>
+
+      <base-timer
+        :bus="bus"
+        :timeUp="timeUp"
+        v-if="selectedCards.industry === ''"
+      />
     </div>
   </section>
 </template>
 
 <script>
+import BaseTimer from './BaseTimer.vue'
 export default {
+  components: { BaseTimer },
   props: {
     companycards: {
       type: Array,
@@ -91,6 +99,10 @@ export default {
       type: Function,
       required: false,
     },
+    timeUp: {
+      type: Function,
+      required: false,
+    },
     reviewHotTrend: {
       type: Boolean,
       required: true,
@@ -98,6 +110,9 @@ export default {
     teamName: {
       type: String,
       required: false,
+    },
+    bus: {
+      required: true,
     },
   },
   data() {

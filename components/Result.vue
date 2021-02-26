@@ -15,6 +15,7 @@
           <p>Industry : {{ team.industry }}</p>
           <p>Hot Trend : {{ team.hotTrend }}</p>
           <p>Score : {{ team.score }}</p>
+          <p>Name : {{ team.name }}</p>
         </Team>
       </section>
     </div>
