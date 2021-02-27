@@ -132,7 +132,10 @@
       </div>
     </div>
     <Game
-      v-else-if="status === 'game' && this.$store.state.userInfo.type == 'user'"
+      v-else-if="
+        (status === 'game' || status === 'extend') &&
+        this.$store.state.userInfo.type == 'user'
+      "
       :companycards="companycards"
       :targetcards="targetcards"
       :industrycards="industrycards"
@@ -141,6 +144,7 @@
       :reviewHotTrend="reviewHotTrend"
       :teamName="teamName"
       :setTeamName="setTeamName"
+      :selectable="checkLeader"
       :bus="bus"
       :timeUp="timeUp"
     />
@@ -192,6 +196,7 @@ export default {
         targetUser: '',
         industry: '',
         hotTrend: '',
+        extendHotTrend: '',
       },
       messages: [],
       input: '',
@@ -294,7 +299,7 @@ export default {
             this.status = 'result'
             break
           case 'startex':
-            this.status = 'result'
+            this.status = 'extend'
             break
           case 'teamselecting':
             this.teamSelecting = data.data
@@ -473,26 +478,20 @@ export default {
         data,
       }
       this.connection.send(JSON.stringify(res))
-      // const keyA = this.getTeam(nameA)
-      // const keyB = this.getTeam(nameB)
-      // const indexA = this.teams[keyA].members.indexOf(nameA)
-      // console.log(indexA)
-      // if (indexA > -1) {
-      //   this.teams[keyA].members.splice(indexA, 1)
-      // }
-      // const indexB = this.teams[keyB].members.indexOf(nameB)
-      // console.log(indexB)
-      // if (indexB > -1) {
-      //   this.teams[keyB].members.splice(indexB, 1)
-      // }
-      // this.teams[keyA].members.push(nameB)
-      // this.teams[keyB].members.push(nameA)
     },
     getTeam(name) {
       const result = Object.keys(this.teams).find((key) =>
         this.teams[key].members.includes(name)
       )
       return result
+    },
+    checkLeader() {
+      if (
+        this.$store.state.userInfo.name ===
+        this.getTeam(this.$store.state.userInfo.name)[0]
+      )
+        return true
+      else return false
     },
     removeA(arr) {
       const a = arguments

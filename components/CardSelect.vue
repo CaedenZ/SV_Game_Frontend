@@ -32,11 +32,13 @@
       </div>
       <footer class="card-footer">
         <a
+          v-if="selectable"
           @click="select(title, content)"
           class="card-footer-item"
           style="color: #f97f51"
           >SELECT</a
         >
+        <p v-else class="card-footer-item" style="color: #f97f51">SELECT</p>
       </footer>
     </div>
   </div>
@@ -55,6 +57,10 @@ export default {
     },
     select: {
       type: Function,
+      required: true,
+    },
+    selectable: {
+      type: Boolean,
       required: true,
     },
   },
