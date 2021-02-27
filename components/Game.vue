@@ -117,6 +117,7 @@ export default {
     selectable: {
       type: Boolean,
       required: false,
+    },
     bus: {
       required: true,
     },
