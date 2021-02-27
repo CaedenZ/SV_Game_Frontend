@@ -24,6 +24,7 @@
             :title="card.type"
             :content="card.name"
             :select="select"
+            :selectable="selectable"
           >
           </CardSelect>
         </div>
@@ -37,6 +38,7 @@
             :title="card.type"
             :content="card.name"
             :select="select"
+            :selectable="selectable"
           >
           </CardSelect>
         </div>
@@ -50,6 +52,7 @@
             :title="card.type"
             :content="card.name"
             :select="select"
+            :selectable="selectable"
           >
           </CardSelect>
         </div>
@@ -100,6 +103,10 @@ export default {
     },
     teamName: {
       type: String,
+      required: false,
+    },
+    selectable: {
+      type: Boolean,
       required: false,
     },
   },
