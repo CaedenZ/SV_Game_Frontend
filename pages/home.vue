@@ -7,7 +7,18 @@
       :result="result"
       :disableVote="disableVote"
     />
-    <result :isActive="status === 'result'" :teams="finalResult" />
+    <select-team
+      :isActive="status === 'exvote'"
+      :teams="voting"
+      :vote="vote"
+      :result="result"
+      :disableVote="disableVote"
+    />
+    <result
+      :isActive="status === 'result'"
+      :teams="finalResult"
+      :startex="startex"
+    />
     <div v-if="status === 'waiting'" class="columns">
       <div class="column is-2">
         <b-collapse class="card" animation="slide" aria-id="contentIdForA11y3">
@@ -215,9 +226,7 @@ export default {
   created() {
     if (localStorage.getItem('userInfo')) {
       console.log('Starting Websocket Connection')
-      this.connection = new WebSocket(
-        'ws://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000'
-      )
+      this.connection = new WebSocket('ws://localhost:4000')
       this.connection.onopen = (event) => {
         console.log(event)
         console.log('Successful Connected')
@@ -282,6 +291,9 @@ export default {
             break
           case 'result':
             this.finalResult = data.data
+            this.status = 'result'
+            break
+          case 'startex':
             this.status = 'result'
             break
           case 'teamselecting':
@@ -421,6 +433,12 @@ export default {
     result() {
       const res = {
         type: 'result',
+      }
+      this.connection.send(JSON.stringify(res))
+    },
+    startex() {
+      const res = {
+        type: 'startex',
       }
       this.connection.send(JSON.stringify(res))
     },

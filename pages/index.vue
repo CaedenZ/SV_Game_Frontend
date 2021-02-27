@@ -15,6 +15,10 @@
           <br /><br /><br /><br /><br /><br />
 
           <p>Powered by NTUitive</p>
+
+          <br /><br /><br />
+
+          <b-button type="is-primary" size="is-large">Start The Game</b-button>
         </div>
         <div class="column is-6">
           <img src="../assets/img.webp" style="border-radius: 50%" />
