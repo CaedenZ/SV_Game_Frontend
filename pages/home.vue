@@ -18,6 +18,7 @@
       :isActive="status === 'result'"
       :teams="finalResult"
       :startex="startex"
+      :startexC="startexC"
     />
     <div v-if="status === 'waiting'" class="columns">
       <div class="column is-2">
@@ -208,6 +209,7 @@ export default {
       teamSelecting: {},
       teamName: '',
       number: [],
+      checkdraw: false,
       bus: new Vue(),
     }
   },
@@ -300,6 +302,9 @@ export default {
             break
           case 'startex':
             this.status = 'extend'
+            break
+          case 'draw':
+            this.checkdraw = Boolean(data.data)
             break
           case 'teamselecting':
             this.teamSelecting = data.data
@@ -419,6 +424,7 @@ export default {
       this.reviewHotTrend = true
     },
     startvote() {
+      var VOTE = status === 'game' ? 'startvote' : 'startexvote'
       const res = {
         type: 'startvote',
       }
@@ -446,6 +452,13 @@ export default {
         type: 'startex',
       }
       this.connection.send(JSON.stringify(res))
+    },
+    startexC() {
+      if (this.$store.state.userInfo.type == 'admin' && checkdraw) {
+        return true
+      } else {
+        return false
+      }
     },
     setTeamName(data) {
       const res = {
