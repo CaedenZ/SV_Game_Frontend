@@ -51,6 +51,7 @@ const COLOR_CODES = {
 const TIME_LIMIT = 30
 
 export default {
+  props: ['bus', 'timeUp'],
   data() {
     return {
       timePassed: 0,
@@ -106,12 +107,21 @@ export default {
   },
 
   mounted() {
+    this.bus.$on('onReset', this.onReset)
     this.startTimer()
   },
 
   methods: {
     onTimesUp() {
+      this.timeUp()
+    },
+
+    onReset() {
       clearInterval(this.timerInterval)
+
+      this.timePassed = 0
+      this.timerInterval = null
+      this.startTimer()
     },
 
     startTimer() {

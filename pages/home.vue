@@ -134,6 +134,8 @@
       :teamName="teamName"
       :setTeamName="setTeamName"
       :selectable="checkLeader"
+      :bus="bus"
+      :timeUp="timeUp"
     />
     <selection
       v-else-if="
@@ -153,6 +155,7 @@
 <style lang="scss"></style>
 
 <script>
+import Vue from 'vue'
 import moment from 'moment-timezone'
 import Team from '~/components/Team'
 import Game from '~/components/Game'
@@ -194,6 +197,7 @@ export default {
       teamSelecting: {},
       teamName: '',
       number: [],
+      bus: new Vue(),
     }
   },
   beforeRouteLeave(to, from, next) {
@@ -354,6 +358,40 @@ export default {
         },
       }
       this.connection.send(JSON.stringify(res))
+      this.bus.$emit('onReset')
+    },
+    timeUp() {
+      if (this.selectedCards.companyName === '') {
+        const res = {
+          type: 'select',
+          data: {
+            type: 'Company Name',
+            name: this.companycards[0].name,
+          },
+        }
+        this.connection.send(JSON.stringify(res))
+        this.bus.$emit('onReset')
+      } else if (this.selectedCards.targetUser === '') {
+        const res = {
+          type: 'select',
+          data: {
+            type: 'Target User',
+            name: this.targetcards[0].name,
+          },
+        }
+        this.connection.send(JSON.stringify(res))
+        this.bus.$emit('onReset')
+      } else {
+        const res = {
+          type: 'select',
+          data: {
+            type: 'Industry',
+            name: this.industrycards[0].name,
+          },
+        }
+        this.connection.send(JSON.stringify(res))
+        this.bus.$emit('onReset')
+      }
     },
     receiveCard(type, name) {
       if (type === 'Company Name') this.selectedCards.companyName = name
