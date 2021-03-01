@@ -234,9 +234,7 @@ export default {
   created() {
     if (localStorage.getItem('userInfo')) {
       console.log('Starting Websocket Connection')
-      this.connection = new WebSocket(
-        'ws://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000'
-      )
+      this.connection = new WebSocket('ws://localhost:4000')
       this.connection.onopen = (event) => {
         console.log(event)
         console.log('Successful Connected')
@@ -430,7 +428,12 @@ export default {
       this.reviewHotTrend = true
     },
     startvote() {
-      const VOTE = status === 'game' ? 'startvote' : 'startexvote'
+      let VOTE
+      if (status === 'extend') {
+        VOTE = 'startexvote'
+      } else {
+        VOTE = 'startvote'
+      }
       const res = {
         type: VOTE,
       }
