@@ -211,9 +211,9 @@ export default {
       teamName: '',
       number: [],
       checkdraw: false,
-      startexC:false,
+      startexC: false,
       bus: new Vue(),
-      selectable: true
+      selectable: true,
     }
   },
   beforeRouteLeave(to, from, next) {
@@ -273,7 +273,7 @@ export default {
             this.teams = data.data
             break
           case 'start':
-            checkLeader()
+            this.checkLeader()
             this.status = 'game'
             break
           case 'card':
@@ -314,7 +314,7 @@ export default {
             break
           case 'draw':
             this.checkdraw = Boolean(data.data)
-            startexCheck()
+            this.startexCheck()
             break
           case 'teamselecting':
             this.teamSelecting = data.data
@@ -472,7 +472,7 @@ export default {
       if (this.$store.state.userInfo.type === 'admin' && this.checkdraw) {
         this.startexC = true
       } else {
-        this.startexC=false
+        this.startexC = false
       }
     },
     setTeamName(data) {
@@ -517,9 +517,11 @@ export default {
       if (
         this.$store.state.userInfo.name ===
         this.getTeam(this.$store.state.userInfo.name)[0]
-      )
-        this.
-      else return false
+      ) {
+        this.selectable = true
+      } else {
+        this.selectable = false
+      }
     },
     removeA(arr) {
       const a = arguments
