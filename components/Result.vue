@@ -17,6 +17,9 @@
           <p>Score : {{ team.score }}</p>
           <p>Name : {{ team.name }}</p>
         </Team>
+        <b-button v-if="startexC" type="is-warning" rounded @click="startex"
+          >Start Extention Round</b-button
+        >
       </section>
     </div>
   </b-modal>
@@ -32,6 +35,12 @@ export default {
     },
     teams: {
       type: Object,
+    },
+    startex: {
+      type: Function,
+    },
+    startexC: {
+      type: Boolean,
     },
   },
   beforeRouteLeave(to, from, next) {

@@ -143,6 +143,7 @@
       :selectedCards="selectedCards"
       :select="select"
       :reviewHotTrend="reviewHotTrend"
+      :extention="status === 'extend'"
       :teamName="teamName"
       :setTeamName="setTeamName"
       :selectable="checkLeader"
@@ -233,7 +234,9 @@ export default {
   created() {
     if (localStorage.getItem('userInfo')) {
       console.log('Starting Websocket Connection')
-      this.connection = new WebSocket('ws://localhost:4000')
+      this.connection = new WebSocket(
+        'ws://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000'
+      )
       this.connection.onopen = (event) => {
         console.log(event)
         console.log('Successful Connected')
@@ -272,9 +275,12 @@ export default {
             break
           case 'card':
             this.cards = data.data
-            this.selectedCards.hotTrend = this.cards.find(
+            this.selectedCards.hotTrend = this.cards.filter(
               (element) => element.type === 'Hot Trend'
-            ).name
+            )[0].name
+            this.selectedCards.extendHotTrend = this.cards.filter(
+              (element) => element.type === 'Hot Trend'
+            )[1].name
             this.companycards = data.data.filter(
               (e) => e.type === 'Company Name'
             )
@@ -424,9 +430,9 @@ export default {
       this.reviewHotTrend = true
     },
     startvote() {
-      var VOTE = status === 'game' ? 'startvote' : 'startexvote'
+      const VOTE = status === 'game' ? 'startvote' : 'startexvote'
       const res = {
-        type: 'startvote',
+        type: VOTE,
       }
       this.connection.send(JSON.stringify(res))
     },
@@ -454,7 +460,7 @@ export default {
       this.connection.send(JSON.stringify(res))
     },
     startexC() {
-      if (this.$store.state.userInfo.type == 'admin' && checkdraw) {
+      if (this.$store.state.userInfo.type === 'admin' && this.checkdraw) {
         return true
       } else {
         return false

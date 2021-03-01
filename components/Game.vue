@@ -14,6 +14,12 @@
           :content="selectedCards.hotTrend"
         >
         </Card>
+        <Card
+          v-if="extention"
+          title="Hot Trend 2"
+          :content="selectedCards.extendHotTrend"
+        >
+        </Card>
       </div>
       <div v-if="companycards.length > 1">
         <div v-if="selectedCards.companyName === ''" class="columns is-center">
@@ -107,6 +113,10 @@ export default {
       required: false,
     },
     reviewHotTrend: {
+      type: Boolean,
+      required: true,
+    },
+    extention: {
       type: Boolean,
       required: true,
     },
