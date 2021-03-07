@@ -1,5 +1,10 @@
 <template>
   <section class="section">
+    <br />
+    <header>
+      <p>LOGIN</p>
+    </header>
+    <br />
     <v-layout justify-center>
       <form class="formSectionBox" @submit.prevent="validateBeforeSubmit">
         <div class="field">

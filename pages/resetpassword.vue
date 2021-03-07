@@ -2,26 +2,10 @@
   <section>
     <br />
     <header>
-      <p>REGISTER</p>
+      <p>RESET PASSWORD</p>
     </header>
     <br />
     <div class="is-half">
-      <b-field style="width: 300px; color: white"
-        >EMAIL
-        <b-input
-          v-model="email"
-          v-validate="'required|email'"
-          type="email"
-          maxlength="30"
-        >
-        </b-input>
-      </b-field>
-
-      <b-field style="width: 300px; color: white"
-        >USERNAME
-        <b-input v-model="username" maxlength="30"></b-input>
-      </b-field>
-
       <b-field style="width: 300px; color: white"
         >PASSWORD
         <b-input v-model="password" type="password" password-reveal> </b-input>
@@ -36,21 +20,18 @@
         type="is-warning"
         rounded
         style="width: 300px"
-        @click="registration"
-        >Sign up</b-button
+        @click="resetpassword"
+        >Submit</b-button
       >
     </div>
   </section>
 </template>
 
 <script>
-import Cookie from 'js-cookie'
 export default {
   data() {
     return {
-      email: '',
       password: '',
-      username: '',
       confirmPassword: '',
     }
   },
@@ -58,11 +39,11 @@ export default {
     console.log('Mounter')
   },
   methods: {
-    async registration() {
-      const regInfo = {
-        email: this.email,
-        password: this.password,
-        name: this.username,
+    async resetpassword() {
+      const resetInfo = {
+        password: '',
+        confirmPassword: '',
+        token: this.$route.params.token,
       }
 
       if (this.password !== this.confirmPassword) {
@@ -72,20 +53,16 @@ export default {
         })
       } else {
         try {
-          const retData = await this.$axios.$post('/register', regInfo)
-          console.log('aa')
+          const retData = await this.$axios.$post('/reset', resetInfo)
+          console.log(retData)
           this.$toast.open({
-            message: 'Welcome!',
+            message: 'Successfully reset!',
             type: 'success',
           })
-          this.$store.dispatch('setLoggedIn', retData)
-          Cookie.set('userInfo', retData, {
-            expires: 7,
-          })
-          this.$router.push('/')
+          this.$router.push('/login')
         } catch (e) {
           this.$toast.open({
-            message: 'This email has already been registered!',
+            message: 'Something went wrong!',
             type: 'error',
           })
         }

@@ -192,8 +192,6 @@ export default {
     const info = JSON.parse(localStorage.getItem('userInfo'))
     if (info) {
       this.$store.dispatch('setLoggedIn', info)
-    } else {
-      this.$router.push('/login')
     }
   },
   methods: {
