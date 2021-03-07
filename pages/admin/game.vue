@@ -84,6 +84,12 @@ export default {
     },
   },
   async mounted() {
+    const info = JSON.parse(localStorage.getItem('userInfo'))
+    if (info) {
+      this.$store.dispatch('setLoggedIn', info)
+    } else {
+      this.$router.push('/login')
+    }
     const users = await this.$axios.get('/users')
     const teams = await this.$axios.get('/teams')
     this.allTeams = teams.data

@@ -227,6 +227,12 @@ export default {
     }
   },
   mounted() {
+    const info = JSON.parse(localStorage.getItem('userInfo'))
+    if (info) {
+      this.$store.dispatch('setLoggedIn', info)
+    } else {
+      this.$router.push('/login')
+    }
     this.$buefy.snackbar.open({
       message: 'Welcome back',
       queue: false,

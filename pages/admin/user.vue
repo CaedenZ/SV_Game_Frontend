@@ -74,6 +74,12 @@ export default {
     },
   },
   async mounted() {
+    const info = JSON.parse(localStorage.getItem('userInfo'))
+    if (info) {
+      this.$store.dispatch('setLoggedIn', info)
+    } else {
+      this.$router.push('/login')
+    }
     const data = await this.$axios.get('/users')
     this.userData = data.data
     this.isLoading = false
