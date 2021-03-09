@@ -51,7 +51,7 @@ export default {
         // })
         console.log(retData)
         this.$toast.open({
-          message: 'Email has been sent!',
+          message: 'Email has been sent! Please reset within 15 minutes.',
           type: 'success',
         })
       } catch (e) {
