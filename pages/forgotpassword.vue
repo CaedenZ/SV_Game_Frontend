@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'Forgot',
   data() {
@@ -43,10 +42,14 @@ export default {
   methods: {
     async forgotpassword() {
       try {
-        const response = await axios.post('forgot', {
+        const emailInfo = {
           email: this.email,
-        })
-        console.log(response)
+        }
+        const retData = await this.$axios.$post('/forgot', emailInfo)
+        // const response = await axios.post('forgot', {
+        //   email: this.email,
+        // })
+        console.log(retData)
         this.$toast.open({
           message: 'Email has been sent!',
           type: 'success',

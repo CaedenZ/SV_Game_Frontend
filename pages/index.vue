@@ -18,7 +18,9 @@
 
           <br /><br /><br />
 
-          <b-button type="is-primary" size="is-large">Start The Game</b-button>
+          <b-button type="is-primary" size="is-large" @click="goGame"
+            >Start The Game</b-button
+          >
         </div>
         <div class="column is-6">
           <img src="../assets/img.webp" style="border-radius: 50%" />
@@ -105,6 +107,11 @@ export default {
   },
   mounted() {},
   created() {},
-  methods: {},
+  methods: {
+    goGame() {
+      console.log('here')
+      this.$router.push('/home')
+    },
+  },
 }
 </script>
