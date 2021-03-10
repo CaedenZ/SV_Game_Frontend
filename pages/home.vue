@@ -507,9 +507,10 @@ export default {
       return result
     },
     checkLeader() {
+      console.log(this.getTeam(this.$store.state.userInfo.name))
       if (
         this.$store.state.userInfo.name ===
-        this.getTeam(this.$store.state.userInfo.name)[0]
+        this.teams[this.getTeam(this.$store.state.userInfo.name)].members[0]
       ) {
         this.selectable = true
       } else {
