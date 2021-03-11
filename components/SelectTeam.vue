@@ -6,9 +6,9 @@
       </header>
       <section class="modal-card-body">
         <Team
-          v-for="(team, key, index) in teams"
+          v-for="(team, key) in teams"
           :key="key"
-          :title="'Group ' + (index + 1)"
+          :title="'Group ' + (key + 1)"
         >
           <p>Company Name : {{ team.companyName }}</p>
           <p>Target User : {{ team.targetUser }}</p>
