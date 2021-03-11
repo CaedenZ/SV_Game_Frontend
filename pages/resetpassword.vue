@@ -7,11 +7,6 @@
     <br />
     <div class="is-half">
       <b-field style="width: 300px; color: white"
-        >EMAIL
-        <b-input v-model="email" type="email" password-reveal> </b-input>
-      </b-field>
-
-      <b-field style="width: 300px; color: white"
         >PASSWORD
         <b-input v-model="password" type="password" password-reveal> </b-input>
       </b-field>
@@ -42,14 +37,14 @@ export default {
   },
   mounted() {
     console.log('Mounter')
+    console.log('token' + this.$route.query.token)
   },
   methods: {
     async resetpassword() {
       const resetInfo = {
-        email: '',
-        password: '',
-        confirmPassword: '',
-        token: this.$route.params.token,
+        password: this.password,
+        id: this.$route.query.id,
+        token: this.$route.query.token,
       }
 
       if (this.password !== this.confirmPassword) {
