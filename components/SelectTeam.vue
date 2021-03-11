@@ -8,7 +8,7 @@
         <Team
           v-for="(team, key) in teams"
           :key="key"
-          :title="'Group ' + (key + 1)"
+          :title="'Group ' + (parseInt(key) + 1)"
         >
           <p>Company Name : {{ team.companyName }}</p>
           <p>Target User : {{ team.targetUser }}</p>
