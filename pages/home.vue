@@ -19,6 +19,7 @@
       :teams="finalResult"
       :startex="startex"
       :startexC="startexC"
+      :endgame="endgame"
     />
     <div v-if="status === 'waiting'" class="columns">
       <div class="column is-2">
@@ -65,7 +66,7 @@
           </div>
         </Team>
         <div v-if="this.$store.state.userInfo.type == 'admin'">
-          <button @click="startGame">Start</button>
+          <button @click="startGame">Start Game</button>
           <button @click="testCard">Test Card</button>
           <div class="field has-addons">
             <div class="control">
@@ -82,7 +83,7 @@
                 @click="assignTeam"
                 style="background: #6b63d8"
               >
-                Shuffle
+                Shuffle Users Into Teams
               </a>
             </div>
           </div>
@@ -157,9 +158,9 @@
       :teams="teamSelecting"
     />
     <div v-if="this.$store.state.userInfo.type == 'admin'">
-      <b-button type="is-warning" rounded @click="sendReview">Review</b-button>
+      <b-button type="is-warning" rounded @click="sendReview">Show Hot Trend Card</b-button>
       <b-button type="is-danger" rounded @click="startvote">Vote</b-button>
-      <b-button rounded @click="result">Review Result</b-button>
+      <b-button rounded @click="result">Show Results</b-button>
       <!-- <b-button rounded @click="downloadItem">download</b-button> -->
     </div>
   </section>
@@ -318,6 +319,9 @@ export default {
           case 'startex':
             this.status = 'extend'
             break
+          case 'endgame':
+            this.status = 'endgame'
+            break
           case 'draw':
             this.checkdraw = Boolean(data.data)
             this.startexCheck()
@@ -460,6 +464,10 @@ export default {
         type: 'startex',
       }
       this.connection.send(JSON.stringify(res))
+    },
+    endgame(){
+      // to add backend code here
+
     },
     startexCheck() {
       if (this.$store.state.userInfo.type === 'admin' && this.checkdraw) {
