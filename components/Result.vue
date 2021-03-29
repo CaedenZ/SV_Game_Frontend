@@ -20,6 +20,9 @@
         <b-button v-if="startexC" type="is-warning" rounded @click="startex"
           >Start Extention Round</b-button
         >
+        <b-button type="is-primary" rounded @click="endgame"
+          >End Game</b-button
+        >
       </section>
     </div>
   </b-modal>
