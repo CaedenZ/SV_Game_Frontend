@@ -61,7 +61,10 @@
           >
           </CardSelect>
         </div>
-        <div v-else-if="teamName === ''" class="columns is-center">
+        <div
+          v-else-if="teamName === '' && selectable"
+          class="columns is-center"
+        >
           <b-field>
             <b-input placeholder="CompanyName" size="is-large" v-model="name">
             </b-input>

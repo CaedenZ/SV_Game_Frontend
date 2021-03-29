@@ -242,9 +242,7 @@ export default {
   created() {
     if (localStorage.getItem('userInfo')) {
       console.log('Starting Websocket Connection')
-      this.connection = new WebSocket(
-        'ws://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000'
-      )
+      this.connection = new WebSocket('ws://192.168.1.105:4000')
       this.connection.onopen = (event) => {
         console.log(event)
         console.log('Successful Connected')
@@ -309,6 +307,12 @@ export default {
           case 'startvote':
             this.voting = data.data
             this.status = 'vote'
+            console.log(data.data)
+            break
+          case 'startexvote':
+            this.disableVote = false
+            this.voting = data.data
+            this.status = 'exvote'
             console.log(data.data)
             break
           case 'result':
@@ -428,7 +432,7 @@ export default {
     },
     startvote() {
       let VOTE
-      if (status === 'extend') {
+      if (this.status === 'extend') {
         VOTE = 'startexvote'
       } else {
         VOTE = 'startvote'
