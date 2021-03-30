@@ -380,6 +380,7 @@ export default {
         type: 'end',
       }
       this.connection.send(JSON.stringify(res))
+      this.status = 'waiting'
     },
     select(type, name) {
       const res = {
