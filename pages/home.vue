@@ -158,7 +158,9 @@
       :teams="teamSelecting"
     />
     <div v-if="this.$store.state.userInfo.type == 'admin'">
-      <b-button type="is-warning" rounded @click="sendReview">Show Hot Trend Card</b-button>
+      <b-button type="is-warning" rounded @click="sendReview"
+        >Show Hot Trend Card</b-button
+      >
       <b-button type="is-danger" rounded @click="startvote">Vote</b-button>
       <b-button rounded @click="result">Show Results</b-button>
       <!-- <b-button rounded @click="downloadItem">download</b-button> -->
@@ -373,6 +375,12 @@ export default {
       }
       this.connection.send(JSON.stringify(res))
     },
+    endgame() {
+      const res = {
+        type: 'end',
+      }
+      this.connection.send(JSON.stringify(res))
+    },
     select(type, name) {
       const res = {
         type: 'select',
@@ -469,9 +477,8 @@ export default {
       }
       this.connection.send(JSON.stringify(res))
     },
-    endgame(){
+    endgame() {
       // to add backend code here
-
     },
     startexCheck() {
       if (this.$store.state.userInfo.type === 'admin' && this.checkdraw) {
