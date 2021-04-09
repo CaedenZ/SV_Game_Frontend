@@ -9,36 +9,44 @@
               font-size: 55px;
               font-weight: bold;
             "
-            >Seal the deal in 60 seconds!</span
+            >Seal the deal in <br />60 seconds!</span
+          ><br />
+          <span
+            style="
+              font-family: poppins-semibold, poppins, sans-serif;
+              font-size: 23px;
+            "
+            >The game that makes pitching fun and exciting.</span
           >
-          <p>The game that makes pitching fun and exciting.</p>
-          <br /><br /><br /><br /><br /><br />
 
-          <p>Powered by NTUitive</p>
+          <br /><br /><br /><br />
 
-          <br /><br /><br />
-
-          <b-button type="is-primary" size="is-large" @click="goGame"
-            >Start The Game</b-button
+          <b-button
+            type="is-primary"
+            size="is-large"
+            @click="goGame"
+            style="
+              font-family: poppins-bold, poppins, sans-serif;
+              font-size: 25px;
+              font-weight: bold;
+            "
+            >START NOW</b-button
           >
+
+          <br /><br /><br /><br /><br />
+
+          <p>
+            Powered by
+            <a href="https://www.ntuitive.sg/">
+              <img
+                src="../assets/NTUitive.png"
+                style="height: 120px; width: 120px"
+            /></a>
+          </p>
         </div>
         <div class="column is-6">
           <img src="../assets/img.webp" style="border-radius: 50%" />
         </div>
-      </div>
-
-      <div class="container">
-        <p
-          class="font_8"
-          style="line-height: 1.5em; text-align: center; font-size: 29px"
-        >
-          <span style="font-size: 29px"
-            ><span style="letter-spacing: 0.05em"
-              >A pitching game platform inspired by Silicon Valley Startup
-              Pitching Card Game.</span
-            ></span
-          >
-        </p>
       </div>
 
       <!-- <div class="container">
@@ -49,7 +57,7 @@
 
       <div class="container">
         <h2 class="font_2" style="text-align: center; font-size: 40px">
-          <span class="color_15">How to Play</span>
+          <br />
         </h2>
       </div>
       <img src="../assets/short.png" />
@@ -89,11 +97,15 @@ img {
 }
 .intro {
   background-image: url(../assets/bg1.png);
+  background-size: cover;
+  border-radius: 5px;
 }
 .nan {
   height: 50px;
   background-image: url(../assets/bg3.png);
   margin: 30px 0;
+  background-size: cover;
+  border-radius: 5px;
 }
 </style>
 
