@@ -100,16 +100,7 @@ export default {
       }
     },
     validateBeforeSubmit() {
-      this.$validator.validateAll().then((result) => {
-        if (result) {
-          this.login()
-          return
-        }
-        this.$toast.open({
-          message: 'Something went wrong!',
-          type: 'error',
-        })
-      })
+      this.login()
     },
   },
 
