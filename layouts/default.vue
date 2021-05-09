@@ -30,7 +30,6 @@
         <div v-if="this.$store.state.userInfo.name" class="navbar-end">
           <a class="navbar-item" @click="gogame">Start</a>
           <a class="navbar-item" @click="goleaderboard">leaderboard</a>
-          <a class="navbar-item">how it work</a>
           <a class="navbar-item" @click="goprofile">{{
             this.$store.state.userInfo.name
           }}</a>
