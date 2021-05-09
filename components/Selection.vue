@@ -9,6 +9,7 @@
       <p>Target User : {{ team.targetUser }}</p>
       <p>Industry : {{ team.industry }}</p>
       <p>Hot Trend : {{ team.hotTrend }}</p>
+      <p>Hot Trend 2 : {{ team.extendHotTrend }}</p>
       <p>Team Name : {{ team.name }}</p>
       <p>Score : {{ team.score }}</p>
     </Team>
