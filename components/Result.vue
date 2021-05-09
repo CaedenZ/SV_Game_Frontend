@@ -14,6 +14,7 @@
           <p>Target User : {{ team.targetUser }}</p>
           <p>Industry : {{ team.industry }}</p>
           <p>Hot Trend : {{ team.hotTrend }}</p>
+          <p>Hot Trend 2 : {{ team.extend }}</p>
           <p>Score : {{ team.score }}</p>
           <p>Name : {{ team.name }}</p>
         </Team>
@@ -46,6 +47,9 @@ export default {
     endgame: {
       type: Function,
     },
+  },
+  mounted() {
+    console.log(this.teams)
   },
   beforeRouteLeave(to, from, next) {
     const answer = window.confirm(

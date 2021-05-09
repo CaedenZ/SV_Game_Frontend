@@ -17,7 +17,7 @@
         <Card
           v-if="extention"
           title="Hot Trend 2"
-          :content="selectedCards.extendHotTrend"
+          :content="selectedCards.extend"
         >
         </Card>
       </div>

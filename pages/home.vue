@@ -201,7 +201,7 @@ export default {
         targetUser: '',
         industry: '',
         hotTrend: '',
-        extendHotTrend: '',
+        extend: '',
       },
       messages: [],
       input: '',
@@ -290,7 +290,7 @@ export default {
             this.selectedCards.hotTrend = this.cards.filter(
               (element) => element.type === 'Hot Trend'
             )[0].name
-            this.selectedCards.extendHotTrend = this.cards.filter(
+            this.selectedCards.extend = this.cards.filter(
               (element) => element.type === 'Hot Trend'
             )[1].name
             this.companycards = data.data.filter(
