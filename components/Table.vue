@@ -15,8 +15,6 @@
       @cancel="editCancel"
     />
     <b-table
-      class="table-dark"
-      :dark="true"
       :checked-rows.sync="checkedRows"
       :checkable="checkable"
       :loading="isLoading"
@@ -24,7 +22,6 @@
       :per-page="perPage"
       :striped="true"
       :hoverable="true"
-      :background="black"
       :default-sort="defaultsort"
       :default-sort-direction="sortdirection"
       :data="userData"
@@ -172,7 +169,6 @@ export default {
       tabledataType: this.dataType,
       defaultsort: 'name',
       sortdirection: 'asc',
-      dark: true,
     }
   },
   computed: {

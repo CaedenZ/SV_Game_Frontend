@@ -480,9 +480,6 @@ export default {
       }
       this.connection.send(JSON.stringify(res))
     },
-    endgame() {
-      // to add backend code here
-    },
     startexCheck() {
       if (this.$store.state.userInfo.type === 'admin' && this.checkdraw) {
         this.startexC = true
