@@ -9,7 +9,7 @@
         <Card title="Target User" :content="selectedCards.targetUser"> </Card>
         <Card title="Industry" :content="selectedCards.industry"> </Card>
         <Card
-          v-if="reviewHotTrend"
+          v-if="reviewHotTrend && !extention"
           title="Hot Trend"
           :content="selectedCards.hotTrend"
         >
