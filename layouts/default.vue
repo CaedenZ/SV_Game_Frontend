@@ -83,7 +83,6 @@ html {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 .table thead tr {
-  background-color: #0a0a0a;
   color: #ffffff;
   text-align: left;
 }

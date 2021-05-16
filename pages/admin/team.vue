@@ -3,8 +3,7 @@
     <hero-bar :has-right-visible="false"> Team </hero-bar>
     <tiles>
       <card-widget
-        class="tile is-child"
-        type="is-primary"
+        class="tile is-child has-text-white"
         icon="account-multiple"
         :number="allUsers.length"
         label="Users"
@@ -101,10 +100,12 @@ export default {
       }
       const header = [
         'id',
+        'name',
         'teamScore',
         'companyName',
         'targetUser',
         'industry',
+        'extend',
         'hotTrend',
         'gID',
       ]

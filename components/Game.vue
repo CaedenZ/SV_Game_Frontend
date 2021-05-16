@@ -2,7 +2,7 @@
   <section class="section">
     <div class="container">
       <div v-if="teamName" class="content">
-        <h2 class="title">{{ teamName }}</h2>
+        <h2 class="title has-text-white">{{ teamName }}</h2>
       </div>
       <div class="columns is-center">
         <Card title="Company Name" :content="selectedCards.companyName"> </Card>

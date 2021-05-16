@@ -111,7 +111,11 @@ export default {
       )
 
       this.gameData[game].teams = gameTeamsID
-      this.gameData[game].winner = gameTeams[0]
+      if (gameTeams[0] != null) {
+        this.gameData[game].winner = gameTeams[0].id
+        this.gameData[game].companyName = gameTeams[0].companyName
+        this.gameData[game].teamScore = gameTeams[0].teamScore
+      }
     }
     this.isLoading = false
   },
