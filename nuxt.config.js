@@ -1,5 +1,8 @@
+import path from 'path'
+import fs from 'fs'
+
 const axiosCallURLs = {
-  baseURL: 'http://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000',
+  baseURL: 'https://ec2-18-191-146-196.us-east-2.compute.amazonaws.com:4000',
 }
 
 export default {
@@ -7,8 +10,11 @@ export default {
   ssr: false,
 
   server: {
-    port: 80, // default: 3000
-    host: '0.0.0.0', // default: localhost
+    port: 443,
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'sslcert/server.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'sslcert/server.crt')),
+    },
   },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
